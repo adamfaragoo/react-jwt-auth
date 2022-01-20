@@ -1,6 +1,7 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View,Image,Button,TouchableOpacity,Modal,Pressable,StyleSheet,TextInput  } from 'react-native';
+import { FlatList, ActivityIndicator, Text, View,Image,Button,TouchableOpacity,Modal,Pressable,StyleSheet,TextInput, Dimensions  } from 'react-native';
  
+
 
 const ipcim="172.16.0.29";
 
@@ -50,12 +51,11 @@ export default class Sorozat extends React.Component {
       )
     }
     return(
-      <View style={{flex:1,paddingTop:20,backgroundColor:"#262626",justifyContent:"center",alignItems:"center",paddingBottom:10,}}>
+      <View style={{flex:1,paddingTop:20,backgroundColor:"#262626",justifyContent:"center",alignItems:"center",paddingBottom:10,overflow:'hidden'}}>
 
         <FlatList
           showsVerticalScrollIndicator={false}
-          numColumns={7}
-          
+          numColumns={6}
           data={this.state.dataSource}
           keyExtractor={({sorozat_id}) => sorozat_id} 
           renderItem={({item}) =>
@@ -66,7 +66,7 @@ export default class Sorozat extends React.Component {
             style={{width:150,height:230,marginRight:10,marginTop:10,marginLeft:10,borderRadius:15}}
             />
             <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:16,fontWeight:"bold",width:155}}>{item.sorozat_cim}</Text>
-            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:12,width:50,borderWidth:1,borderRadius:5,borderColor:"white",textAlign:"center"}}>{item.mufaj_nev}</Text>
+            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:12,width:60,borderWidth:1,borderRadius:5,borderColor:"white",textAlign:"center"}}>{item.mufaj_nev}</Text>
             </TouchableOpacity>
             
           </View>
