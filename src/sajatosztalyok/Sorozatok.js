@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, ActivityIndicator, Text, View,Image,TouchableOpacity,TextInput  } from 'react-native';
  
 
-const ipcim="172.16.0.29";
+const ipcim="localhost:8080";
 
 export default class Sorozat extends React.Component {
 
@@ -11,7 +11,7 @@ export default class Sorozat extends React.Component {
     this.state ={ 
       isLoading: true,
       cim:'',
-      aktmufaj:1
+      aktmufaj:1,
       
     }
   }
@@ -20,7 +20,7 @@ export default class Sorozat extends React.Component {
   componentDidMount(){
     document.body.style.backgroundColor = "#262626"
 
-     fetch('http://'+ipcim+':3000/sorozat')
+     fetch('http://'+ipcim+'/sorozat')
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -37,7 +37,7 @@ export default class Sorozat extends React.Component {
         console.error(error);
       });
 
-      fetch('http://'+ipcim+':3000/mufaj')
+      fetch('http://'+ipcim+'/mufaj')
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -60,12 +60,13 @@ export default class Sorozat extends React.Component {
   }
 
   kereses=async () =>{
+    //alert(this.state.cim)
     let bemenet ={
       bevitel1:this.state.cim,
 
 
     }
-    fetch('http://'+ipcim+':3000/kereses', {
+    fetch('http://'+ipcim+'/kereses', {
      method: "POST",
      body: JSON.stringify(bemenet),
      headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -73,11 +74,11 @@ export default class Sorozat extends React.Component {
    )
      .then((response) => response.json())
      .then((responseJson) => {
-
        this.setState({
          isLoading: false,
          dataSource: responseJson,
        }, function(){
+        //alert(JSON.stringify(this.state.dataSource))
 
        });
 
@@ -95,7 +96,7 @@ export default class Sorozat extends React.Component {
     let bemenet={
       bevitel2:szam
     }
-    return fetch('http://'+ipcim+':3000/sorozatszures', {
+    return fetch('http://'+ipcim+'/sorozatszures', {
       method: "POST",
       body: JSON.stringify(bemenet),
       headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -119,7 +120,7 @@ export default class Sorozat extends React.Component {
 
   osszes= async() =>
   {
-    fetch('http://'+ipcim+':3000/sorozat')
+    fetch('http://'+ipcim+'/sorozat')
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -219,11 +220,11 @@ export default class Sorozat extends React.Component {
             sorozatepizod:item.sorozat_epizodszam
             })}>
             <Image 
-            source={{uri:'http://'+ipcim+':3000/'+item.sorozat_kep}}
+            source={{uri:'http://'+ipcim+'/'+item.sorozat_kep}}
             style={{width:220,height:300,marginRight:10,marginTop:10,marginLeft:10,borderRadius:15}}
             />
             <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:16,fontWeight:"bold",width:155}}>{item.sorozat_cim}</Text>
-            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:12,width:50,borderWidth:1,borderRadius:5,borderColor:"white",textAlign:"center"}}>{item.mufaj_nev}</Text>
+            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:12,width:70,borderWidth:1,borderRadius:5,borderColor:"white",textAlign:"center"}}>{item.mufaj_nev}</Text>
             </TouchableOpacity>
             
           </View>
