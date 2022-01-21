@@ -30,6 +30,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+
     const user = AuthService.getCurrentUser();
 
     if (user) {

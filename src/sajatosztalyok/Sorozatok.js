@@ -207,7 +207,7 @@ export default class Sorozat extends React.Component {
 
         <FlatList
           showsVerticalScrollIndicator={false}
-          numColumns={6}
+          numColumns={5}
           data={this.state.dataSource}
           keyExtractor={({sorozat_id}) => sorozat_id} 
           renderItem={({item}) =>
@@ -223,7 +223,7 @@ export default class Sorozat extends React.Component {
             })}>
             <Image 
             source={{uri:'http://'+ipcim+'/'+item.sorozat_kep}}
-            style={{width:width*0.14,height:300,marginRight:10,marginTop:10,marginLeft:10,borderRadius:15}}
+            style={{width:220,height:300,marginRight:10,marginTop:10,marginLeft:10,borderRadius:15}}
             />
             <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:16,fontWeight:"bold",width:155}}>{item.sorozat_cim}</Text>
             <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:12,width:70,borderWidth:1,borderRadius:5,borderColor:"white",textAlign:"center"}}>{item.mufaj_nev}</Text>
