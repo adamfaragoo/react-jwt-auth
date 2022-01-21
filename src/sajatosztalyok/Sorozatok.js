@@ -1,6 +1,8 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View,Image,TouchableOpacity,TextInput  } from 'react-native';
+import { FlatList, ActivityIndicator, Text, View,Image,TouchableOpacity,TextInput,Dimensions  } from 'react-native';
  
+var height = Dimensions.get("window").height;
+var width = Dimensions.get("window").width;
 
 const ipcim="localhost:8080";
 
@@ -221,7 +223,7 @@ export default class Sorozat extends React.Component {
             })}>
             <Image 
             source={{uri:'http://'+ipcim+'/'+item.sorozat_kep}}
-            style={{width:220,height:300,marginRight:10,marginTop:10,marginLeft:10,borderRadius:15}}
+            style={{width:width*0.15,height:300,marginRight:10,marginTop:10,marginLeft:10,borderRadius:15}}
             />
             <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:16,fontWeight:"bold",width:155}}>{item.sorozat_cim}</Text>
             <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:12,width:70,borderWidth:1,borderRadius:5,borderColor:"white",textAlign:"center"}}>{item.mufaj_nev}</Text>
