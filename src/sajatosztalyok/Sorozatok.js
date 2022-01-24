@@ -157,43 +157,7 @@ export default class Sorozat extends React.Component {
     }
     return(
       <View style={{flex:1,paddingTop:20,backgroundColor:"#262626",justifyContent:"center",alignItems:"center",paddingBottom:10,}}>
-        
-        <TouchableOpacity onPress={()=>{this.setState({show:true})}}>
-                <View style={{paddingLeft:90}}>
-                <Text>Katt</Text>
-            </View>
-            </TouchableOpacity>
-            <Modal
-            transparent={true}
-            visible={this.state.show}
-            animationType={"fade"}
-            >
-            <View style={{backgroundColor:"#000000aa", flex:1}}>
-                <View style={{backgroundColor:"white",margin:50, padding:20, borderRadius:10}}>
-                <Text style={{fontSize:20, textAlign:'center', fontWeight:"bold"}}>Készítette:</Text>
 
-                <View style={{flexDirection:"row", alignItems:'center',marginRight:40, marginLeft:25}}>
-                <Text style={{fontSize:20, textAlign:'center', marginTop:30}}>Ákos Zsombor</Text>
-                </View>
-
-                <View style={{flexDirection:"row", alignItems:'center',marginRight:40, marginLeft:25}}>
-                <Text style={{fontSize:20, textAlign:'center', marginTop:10}}>Faragó Ádám</Text>
-                </View>
-                <View>
-                <Text style={{fontSize:10, textAlign:'center', top:90,position:'absolute', left:20}}>2022</Text>
-
-                </View>
-                
-                
-                <TouchableOpacity onPress={()=>{this.setState({show:false})}}>
-                <View style={{alignItems:"center", marginTop:70,}}>
-                  <Text>bezárás </Text>
-            </View>
-            </TouchableOpacity>
-                </View>
-
-            </View>
-            </Modal>
         <View style={{flexDirection:'row'}}>
         <TextInput
         placeholderTextColor="black"
@@ -251,7 +215,7 @@ export default class Sorozat extends React.Component {
           showsVerticalScrollIndicator={false}
           data={this.state.dataSource}
           keyExtractor={({sorozat_id}) => sorozat_id} 
-          contentContainerStyle={{flexDirection : "row", flexWrap : "wrap", justifyContent:'center', alignItems:'center',}} 
+          contentContainerStyle={{flex:1,flexDirection : "row", flexWrap : "wrap", justifyContent:'center', alignItems:'center',}} 
           renderItem={({item}) =>
           <View >
             <TouchableOpacity onPress={()=>{this.setState({show:true})}}>

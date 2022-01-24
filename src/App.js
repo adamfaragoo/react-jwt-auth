@@ -14,6 +14,7 @@ import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 import Proba from "./sajatosztalyok/Proba";
 import Sorozatok from "./sajatosztalyok/Sorozatok";
+import Adattorles from "./sajatosztalyok/Adattorles";
 
 
 
@@ -88,6 +89,13 @@ class App extends Component {
               </li>
             )}
 
+        {showAdminBoard && (
+              <li className="nav-item">
+                <Link to={"/adattorles"} className="nav-link">
+                  Adattörlés
+                </Link>
+              </li>
+            )}  
             {currentUser && (
               <li className="nav-item">
                 <Link to={"/user"} className="nav-link">
@@ -138,6 +146,8 @@ class App extends Component {
             <Route path="/admin" component={BoardAdmin} />
             <Route path="/Proba" component={Proba} />
             <Route path="/Sorozatok" component={Sorozatok} />
+            <Route path="/Adattorles" component={Adattorles} />
+
 
 
           </Switch>
