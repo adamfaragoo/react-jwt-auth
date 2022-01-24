@@ -174,7 +174,7 @@ export default class Sorozat extends React.Component {
         <View style={{height:50, marginBottom:10,flexDirection:'row', }}>
 
   <TouchableOpacity
-      style={{borderWidth:1,borderRadius:10,width:80,height:30,margin:5,width:100, backgroundColor:"#2596be",marginLeft:16}}
+      style={{borderWidth:1,borderRadius:10,width:80,height:30,margin:5,width:100,marginTop:13, backgroundColor:"#2596be",marginLeft:16}}
       onPress={async ()=>this.osszes()}
       >
     <Text style={{textAlign:"center",fontSize:15,color:"white", paddingTop:3,}}>Összes</Text>
@@ -183,7 +183,8 @@ export default class Sorozat extends React.Component {
   <FlatList
     data={this.state.dataSource2}
     horizontal
-    showsHorizontalScrollIndicator={false}
+    contentContainerStyle={{flexDirection : "row", flexWrap : "wrap", justifyContent:'center', alignItems:'center',}} 
+    //showsHorizontalScrollIndicator={false}
     style={{marginRight:17, marginLeft:10}}
     renderItem={({item}) => 
     <View style={{alignItems:"center",marginTop:10,flexDirection:'row',marginBottom:19 }}>
