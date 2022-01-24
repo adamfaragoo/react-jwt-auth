@@ -229,7 +229,7 @@ export default class Sorozat extends React.Component {
             <Modal
             transparent={true}
             visible={this.state.show}
-            animationType={"fade"}
+            animationType={""}
             >
             <View style={{backgroundColor:"#000000aa", flex:1}}>
                 <View style={{backgroundColor:"white",margin:50, padding:20, borderRadius:10}}>
