@@ -1,6 +1,6 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View,Image,TouchableOpacity,TextInput,Dimensions  } from 'react-native';
- 
+import { FlatList, ActivityIndicator, Text, View,Image,TouchableOpacity,TextInput,Dimensions, Modal  } from 'react-native';
+
 var height = Dimensions.get("window").height;
 var width = Dimensions.get("window").width;
 
@@ -14,6 +14,8 @@ export default class Sorozat extends React.Component {
       isLoading: true,
       cim:'',
       aktmufaj:1,
+      show:false,
+
       
     }
   }
@@ -140,6 +142,8 @@ export default class Sorozat extends React.Component {
 
 
   }
+
+ 
  
 
 
@@ -153,6 +157,43 @@ export default class Sorozat extends React.Component {
     }
     return(
       <View style={{flex:1,paddingTop:20,backgroundColor:"#262626",justifyContent:"center",alignItems:"center",paddingBottom:10,}}>
+        
+        <TouchableOpacity onPress={()=>{this.setState({show:true})}}>
+                <View style={{paddingLeft:90}}>
+                <Text>Katt</Text>
+            </View>
+            </TouchableOpacity>
+            <Modal
+            transparent={true}
+            visible={this.state.show}
+            animationType={"fade"}
+            >
+            <View style={{backgroundColor:"#000000aa", flex:1}}>
+                <View style={{backgroundColor:"white",margin:50, padding:20, borderRadius:10}}>
+                <Text style={{fontSize:20, textAlign:'center', fontWeight:"bold"}}>Készítette:</Text>
+
+                <View style={{flexDirection:"row", alignItems:'center',marginRight:40, marginLeft:25}}>
+                <Text style={{fontSize:20, textAlign:'center', marginTop:30}}>Ákos Zsombor</Text>
+                </View>
+
+                <View style={{flexDirection:"row", alignItems:'center',marginRight:40, marginLeft:25}}>
+                <Text style={{fontSize:20, textAlign:'center', marginTop:10}}>Faragó Ádám</Text>
+                </View>
+                <View>
+                <Text style={{fontSize:10, textAlign:'center', top:90,position:'absolute', left:20}}>2022</Text>
+
+                </View>
+                
+                
+                <TouchableOpacity onPress={()=>{this.setState({show:false})}}>
+                <View style={{alignItems:"center", marginTop:70,}}>
+                  <Text>bezárás </Text>
+            </View>
+            </TouchableOpacity>
+                </View>
+
+            </View>
+            </Modal>
         <View style={{flexDirection:'row'}}>
         <TextInput
         placeholderTextColor="black"
@@ -208,20 +249,12 @@ export default class Sorozat extends React.Component {
 
         <FlatList
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{flexDirection : "row", flexWrap : "wrap", justifyContent:'center', alignItems:'center',}} 
           data={this.state.dataSource}
           keyExtractor={({sorozat_id}) => sorozat_id} 
+          contentContainerStyle={{flexDirection : "row", flexWrap : "wrap", justifyContent:'center', alignItems:'center',}} 
           renderItem={({item}) =>
           <View >
-            <TouchableOpacity onPress={async()=>this.props.navigation.navigate('Sorozatsajat',{sorozatnev:item.sorozat_cim,
-            sorozathossz:item.sorozat_hossz,
-            sorozatid:item.sorozat_id,
-            sorozatleiras:item.sorozat_leiras,
-            sorozatev:item.sorozat_ev,
-            sorozatido:item.sorozat_hossz,
-            sorozatevad:item.sorozat_evadszam,
-            sorozatepizod:item.sorozat_epizodszam
-            })}>
+            <TouchableOpacity onPress={()=>{this.setState({show:true})}}>
             <Image 
             source={{uri:'http://'+ipcim+'/'+item.sorozat_kep}}
             style={{width:200,height:280,marginRight:10,marginTop:10,marginLeft:10,borderRadius:15}}
@@ -229,6 +262,37 @@ export default class Sorozat extends React.Component {
             <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:16,fontWeight:"bold",width:155}}>{item.sorozat_cim}</Text>
             <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:12,width:70,borderWidth:1,borderRadius:5,borderColor:"white",textAlign:"center"}}>{item.mufaj_nev}</Text>
             </TouchableOpacity>
+            <Modal
+            transparent={true}
+            visible={this.state.show}
+            animationType={"fade"}
+            >
+            <View style={{backgroundColor:"#000000aa", flex:1}}>
+                <View style={{backgroundColor:"white",margin:50, padding:20, borderRadius:10}}>
+                <Text style={{fontSize:20, textAlign:'center', fontWeight:"bold"}}>Készítette:</Text>
+
+                <View style={{flexDirection:"row", alignItems:'center',marginRight:40, marginLeft:25}}>
+                <Text style={{fontSize:20, textAlign:'center', marginTop:30}}>Ákos Zsombor</Text>
+                </View>
+
+                <View style={{flexDirection:"row", alignItems:'center',marginRight:40, marginLeft:25}}>
+                <Text style={{fontSize:20, textAlign:'center', marginTop:10}}>Faragó Ádám</Text>
+                </View>
+                <View>
+                <Text style={{fontSize:10, textAlign:'center', top:90,position:'absolute', left:20}}>2022</Text>
+
+                </View>
+                
+                
+                <TouchableOpacity onPress={()=>{this.setState({show:false})}}>
+                <View style={{alignItems:"center", marginTop:70,}}>
+                  <Text>bezárás </Text>
+            </View>
+            </TouchableOpacity>
+                </View>
+
+            </View>
+            </Modal>
             
           </View>
         }
