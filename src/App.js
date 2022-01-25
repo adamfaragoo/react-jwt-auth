@@ -15,6 +15,8 @@ import BoardAdmin from "./components/board-admin.component";
 import Proba from "./sajatosztalyok/Proba";
 import Sorozatok from "./sajatosztalyok/Sorozatok";
 import Adattorles from "./sajatosztalyok/Adattorles";
+import Keresestorles from "./sajatosztalyok/Keresestorles";
+
 
 
 
@@ -96,6 +98,13 @@ class App extends Component {
                 </Link>
               </li>
             )}  
+            {showAdminBoard && (
+              <li className="nav-item">
+                <Link to={"/keresestorles"} className="nav-link">
+                  Keresés törlés
+                </Link>
+              </li>
+            )}  
             {currentUser && (
               <li className="nav-item">
                 <Link to={"/user"} className="nav-link">
@@ -135,7 +144,7 @@ class App extends Component {
           )}
         </nav>
 
-        <div className="container mt-3">
+        <div className="">
           <Switch>
             <Route exact path={["/", "/home"]} component={Home} />
             <Route exact path="/login" component={Login} />
@@ -147,6 +156,8 @@ class App extends Component {
             <Route path="/Proba" component={Proba} />
             <Route path="/Sorozatok" component={Sorozatok} />
             <Route path="/Adattorles" component={Adattorles} />
+            <Route path="/Keresestorles" component={Keresestorles} />
+
 
 
 
