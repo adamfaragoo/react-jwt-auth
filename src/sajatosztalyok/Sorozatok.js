@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View,Image,TouchableOpacity,TextInput,Dimensions, Modal  } from 'react-native';
+import { FlatList, ActivityIndicator, Text, View,Image,TouchableOpacity,TextInput,Dimensions, Modal  } from 'react-native-web';
 
 var height = Dimensions.get("window").height;
 var width = Dimensions.get("window").width;

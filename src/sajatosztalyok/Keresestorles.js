@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, FlatList, ActivityIndicator, Text, View, Image , TouchableOpacity, TextInput } from 'react-native';
+import {StyleSheet, FlatList, ActivityIndicator, Text, View, Image , TouchableOpacity, TextInput } from 'react-native-web';
 
 
 const ipcim="localhost:8080";
