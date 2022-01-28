@@ -76,7 +76,7 @@ export default class FetchExample extends React.Component {
         keyExtractor={({komment_id}) => komment_id}
         renderItem={({item}) => 
         <View>
-            <Text>{item.komment_szoveg}</Text>
+            <Text style={{color:'white',textAlign:'center'}}>{item.komment_szoveg}</Text>
         </View>
          }
         />
