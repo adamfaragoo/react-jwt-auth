@@ -70,18 +70,20 @@ export default class FetchExample extends React.Component {
           </View>
         </TouchableOpacity>
       </View>
-
+<View style={{alignItems:'center'}}>
       <FlatList
         data={this.state.dataSource}
         keyExtractor={({komment_id}) => komment_id}
         renderItem={({item}) => 
-        <View>
-            <Text style={{color:'white',textAlign:'center'}}>{item.komment_szoveg}</Text>
+        <View style={{justifyContent:'center', borderWidth:1,width:150,borderColor:"transparent",borderRadius:10,padding:8,backgroundColor:"lightgrey",margin:7,marginLeft:15}}>
+            <Text style={{color:"black",fontWeight:"bold",fontSize:15}}>{item.komment_nev}</Text>
+            <Text style={{fontSize:17}}>{item.komment_szoveg}</Text>
+
         </View>
          }
         />
       </View>
-      
+    </View>  
 
     );
   }
