@@ -63,97 +63,21 @@ class App extends Component {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
+          <Nav.Link href="/proba">Kezdőoldal</Nav.Link>
           <Nav.Link href="/sorozatok">Sorozatok</Nav.Link>
-          <Nav.Link href="#pricing">Pricing</Nav.Link>
-          <NavDropdown title="Admin" id="collasible-nav-dropdown">
+          {currentUser && (
+            <Nav.Link href="/user">Felhasználó</Nav.Link>
+            )}
           {showAdminBoard && (
+          <NavDropdown title="Admin" id="collasible-nav-dropdown">
             <NavDropdown.Item href="/adattorles">Adattörlés</NavDropdown.Item>
-          )}
-            <NavDropdown.Item href="#action/3.2">
-              Another action
-            </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">
-              Separated link
-            </NavDropdown.Item>
+            <NavDropdown.Item href="/keresestorles">Keresés törlés</NavDropdown.Item>
+
           </NavDropdown>
+            )}
         </Nav>
         <Nav>
-          <Nav.Link href="#deets">More deets</Nav.Link>
-          <Nav.Link eventKey={2} href="#memes">
-            Dank memes
-          </Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
-        
-
-
-
-
-
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand">
-            bezKoder
-          </Link>
-          <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
-                Kezdőoldal
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/proba"} className="nav-link">
-                Próba
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/sorozatok"} className="nav-link">
-                Sorozatok
-              </Link>
-            </li>
-
-            {showModeratorBoard && (
-              <li className="nav-item">
-                <Link to={"/mod"} className="nav-link">
-                  Moderátor lap
-                </Link>
-              </li>
-            )}
-
-            {showAdminBoard && (
-              <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin lap
-                </Link>
-              </li>
-            )}
-
-        {showAdminBoard && (
-              <li className="nav-item">
-                <Link to={"/adattorles"} className="nav-link">
-                  Adattörlés
-                </Link>
-              </li>
-            )}  
-            {showAdminBoard && (
-              <li className="nav-item">
-                <Link to={"/keresestorles"} className="nav-link">
-                  Keresés törlés
-                </Link>
-              </li>
-            )}  
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  Felhasználó
-                </Link>
-              </li>
-            )}
-          </div>
-
-          {currentUser ? (
+        {currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/profile"} className="nav-link">
@@ -181,7 +105,16 @@ class App extends Component {
               </li>
             </div>
           )}
-        </nav>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+        
+
+
+
+
+
+        
 
         <div className="">
           <Switch>
