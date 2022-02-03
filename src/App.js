@@ -132,6 +132,8 @@ class App extends Component {
             <Route path="/Adattorles" component={Adattorles} />
             <Route path="/Keresestorles" component={Keresestorles} />
             <Route path="/Felvitel" component={Felvitel} />
+        
+
 
 
 

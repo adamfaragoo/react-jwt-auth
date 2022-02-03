@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlatList, ActivityIndicator, Text, View,Image, ImageBackground, TouchableOpacity, Dimensions, ScrollView  } from 'react-native-web';
+import Iframe from 'react-iframe'
 
 var height = Dimensions.get("window").height;
 var width = Dimensions.get("window").width;
@@ -109,8 +110,17 @@ export default class Kezdooldal extends React.Component {
     }
 
     return(
-      
+
       <ScrollView style={{flex:1, paddingTop:20,backgroundColor:"#262626",flexDirection:'column'}}>
+        <Iframe url="http://www.youtube.com/embed/xDMP3i36naA"
+        width="450px"
+        height="450px"
+        id="myId"
+        className="myClassname"
+        display="initial"
+        position="relative"/>
+
+
         <View style={{height:height*0.35}}>
           </View>
       <View style={{height:height*0.30}}>
