@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React,{useState} from 'react'
 
-function FileUpload() {
+function FileUpload(props) {
 
     const [file, setFile] = useState();
     const [fileName, setFileName] = useState("");
@@ -24,11 +24,16 @@ function FileUpload() {
             console.log(res);
             //---------------------------------------------------------------------------//
             let bemenet={
-                bevitel1:this.props.sorozatcim,
-                bevitel2: "",
-                bevitel3: ""
+                bevitel1:props.sorozatcim,
+                bevitel2:props.sorozatev,
+                bevitel3:props.sorozathossz,
+                bevitel4:props.sorozatmufaj,
+                bevitel5:fileName,
+                bevitel6:props.sorozatleiras,
+                bevitel7:props.sorozatevadszam,
+                bevitel8:props.sorozatepizodszam
+                
               }
-              alert(this.props.sorozatcim)
               fetch('http://localhost:8080/sorozatfelvitel', {
                 method: "POST",
                 body: JSON.stringify(bemenet),
@@ -37,7 +42,6 @@ function FileUpload() {
                 .then((response) => response.text())
                 .then((szoveg) => {
           
-                  alert(szoveg)
                 })
                 .catch((error) =>{
                   console.error(error);
