@@ -18,7 +18,13 @@ export default class Kezdooldal extends React.Component {
       sorozatmufaj:'',
       sorozatleiras:'',
       sorozatevadszam:'',
-      sorozatepizodszam:''
+      sorozatepizodszam:'',
+      filmcim:'',
+      filmev:'',
+      filmhossz:'',
+      filmmufaj:'',
+      filmleiras:'',
+
 
     }
     
@@ -34,9 +40,10 @@ export default class Kezdooldal extends React.Component {
   render(){
 
     return(
-      <View>
+        <View style={{flexDirection:"row"}}>
+          <View style={{alignItems:"left", marginTop:30}}>
           <TextInput
-          style={{borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
+          style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30,}}
           onChangeText={(sorozatcim) => this.setState({sorozatcim})}
           value={this.state.sorozatcim}
           multiline={true}
@@ -44,7 +51,7 @@ export default class Kezdooldal extends React.Component {
         />
 
           <TextInput
-          style={{borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
+          style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
           onChangeText={(sorozatev) => this.setState({sorozatev})}
           value={this.state.sorozatev}
           multiline={true}
@@ -52,14 +59,14 @@ export default class Kezdooldal extends React.Component {
         />
 
           <TextInput
-          style={{borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
+          style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
           onChangeText={(sorozathossz) => this.setState({sorozathossz})}
           value={this.state.sorozathossz}
           multiline={true}
           placeholder='Sorozat hossz'
         />
             <TextInput
-          style={{borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
+          style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
           onChangeText={(sorozatmufaj) => this.setState({sorozatmufaj})}
           value={this.state.sorozatmufaj}
           multiline={true}
@@ -69,7 +76,7 @@ export default class Kezdooldal extends React.Component {
       
 
           <TextInput
-          style={{borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
+          style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
           onChangeText={(sorozatleiras) => this.setState({sorozatleiras})}
           value={this.state.sorozatleiras}
           multiline={true}
@@ -77,14 +84,14 @@ export default class Kezdooldal extends React.Component {
         />
 
           <TextInput
-          style={{borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
+          style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
           onChangeText={(sorozatevadszam) => this.setState({sorozatevadszam})}
           value={this.state.sorozatevadszam}
           multiline={true}
           placeholder='Sorozat évadszáma'
         />
         <TextInput
-          style={{borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
+          style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
           onChangeText={(sorozatepizodszam) => this.setState({sorozatepizodszam})}
           value={this.state.sorozatepizodszam}
           multiline={true}
@@ -99,7 +106,65 @@ export default class Kezdooldal extends React.Component {
           sorozatevadszam={this.state.sorozatevadszam}
           sorozatepizodszam={this.state.sorozatepizodszam}>
           </FileUpload>
+
     </View>
+
+    <View style={{alignItems:"center", marginTop:30}}>
+          <TextInput
+          style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30,}}
+          onChangeText={(filmcim) => this.setState({filmcim})}
+          value={this.state.filmcim}
+          multiline={true}
+          placeholder='Film címe'
+        />
+
+          <TextInput
+          style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
+          onChangeText={(filmev) => this.setState({filmev})}
+          value={this.state.filmev}
+          multiline={true}
+          placeholder='Film év'
+        />
+
+          <TextInput
+          style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
+          onChangeText={(filmhossz) => this.setState({filmhossz})}
+          value={this.state.filmhossz}
+          multiline={true}
+          placeholder='Film hossz'
+        />
+            <TextInput
+          style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
+          onChangeText={(filmmufaj) => this.setState({filmmufaj})}
+          value={this.state.filmmufaj}
+          multiline={true}
+          placeholder='Film műfaj'
+        />
+
+      
+
+          <TextInput
+          style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
+          onChangeText={(filmleiras) => this.setState({filmleiras})}
+          value={this.state.filmleiras}
+          multiline={true}
+          placeholder='Film leírás'
+        />
+
+          <FileUpload 
+          filmcim={this.state.filmcim} 
+          filmev={this.state.filmev} 
+          filmhossz={this.state.filmhossz}
+          filmmufaj={this.state.filmmufaj}
+          filmleiras={this.state.filmleiras}>
+          </FileUpload>
+
+    </View>
+
+</View>
+
+      
+
     );
   }
 }
