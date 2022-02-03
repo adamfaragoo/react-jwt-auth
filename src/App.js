@@ -14,6 +14,7 @@ import Proba from "./sajatosztalyok/Proba";
 import Sorozatok from "./sajatosztalyok/Sorozatok";
 import Adattorles from "./sajatosztalyok/Adattorles";
 import Keresestorles from "./sajatosztalyok/Keresestorles";
+import Felvitel from "./sajatosztalyok/Felvitel";
 
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
@@ -72,6 +73,7 @@ class App extends Component {
           <NavDropdown title="Admin" id="collasible-nav-dropdown">
             <NavDropdown.Item href="/adattorles">Adattörlés</NavDropdown.Item>
             <NavDropdown.Item href="/keresestorles">Keresés törlés</NavDropdown.Item>
+            <NavDropdown.Item href="/Felvitel">Felvitel</NavDropdown.Item>
 
           </NavDropdown>
             )}
@@ -129,6 +131,8 @@ class App extends Component {
             <Route path="/Sorozatok" component={Sorozatok} />
             <Route path="/Adattorles" component={Adattorles} />
             <Route path="/Keresestorles" component={Keresestorles} />
+            <Route path="/Felvitel" component={Felvitel} />
+
 
 
 
