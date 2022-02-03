@@ -123,7 +123,7 @@ export default class FetchExample extends React.Component {
         placeholderTextColor="black"
         style={{height: 45,backgroundColor:"#DCDCDC", borderRadius:10, padding:10, width:240,margin:20,marginRight:10, textAlign:"center", }}
         placeholder="Keresés"
-        onChangeText={(szoveg2) => this.setState2({szoveg2})}
+        onChangeText={(szoveg2) => this.setState({szoveg2})}
         value={this.state.szoveg2}
         />
         <TouchableOpacity 
