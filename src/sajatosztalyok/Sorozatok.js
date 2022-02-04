@@ -188,11 +188,11 @@ export default class Sorozat extends React.Component {
   <FlatList
     data={this.state.dataSource2}
     horizontal
-    contentContainerStyle={{flexDirection : "row", flexWrap : "wrap", justifyContent:'center', alignItems:'center',}} 
+    contentContainerStyle={{flex:1,flexDirection : "row", flexWrap : "wrap", justifyContent:'center', alignItems:'center',}} 
     //showsHorizontalScrollIndicator={false}
     style={{marginRight:17, marginLeft:10}}
     renderItem={({item}) => 
-    <View style={{alignItems:"center",marginTop:10,flexDirection:'row',marginBottom:19 }}>
+    <View style={{alignItems:"center",marginTop:10,flexDirection:'row',marginBottom:19, }}>
     
       <TouchableOpacity
       style={{borderWidth:1,borderRadius:10,width:100,height:27,margin:5,backgroundColor:"#262626", borderColor:"white", }}
@@ -217,15 +217,13 @@ export default class Sorozat extends React.Component {
           keyExtractor={({sorozat_id}) => sorozat_id} 
           contentContainerStyle={{flex:1,flexDirection : "row", flexWrap : "wrap", justifyContent:'center', alignItems:'center',}} 
           renderItem={({item}) =>
-          <View >
+          <View style={{flex:1, alignItems:'center', textAlign:'center', justifyContent:'center'}} >
             <TouchableOpacity onPress={()=>{this.setState({show:true})}}>
             <Image 
             source={{uri:'http://'+ipcim+'/'+item.sorozat_kep}}
             style={{width:200,height:280,marginRight:10,marginTop:10,marginLeft:10,borderRadius:15}}
             />
-            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:16,fontWeight:"bold",width:155}}>{item.sorozat_cim}</Text>
-            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:12,width:70,borderWidth:1,borderRadius:5,borderColor:"white",textAlign:"center"}}>{item.mufaj_nev}</Text>
-            </TouchableOpacity>
+            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:16,fontWeight:"bold",width:180,height:40}}>{item.sorozat_cim}</Text>            </TouchableOpacity>
             <Modal
             transparent={true}
             visible={this.state.show}

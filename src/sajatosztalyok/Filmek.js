@@ -217,14 +217,13 @@ export default class Filmek extends React.Component {
           keyExtractor={({sorozat_id}) => sorozat_id} 
           contentContainerStyle={{flex:1,flexDirection : "row", flexWrap : "wrap", justifyContent:'center', alignItems:'center',}} 
           renderItem={({item}) =>
-          <View >
+          <View style={{flex:1, alignItems:'center', textAlign:'center', justifyContent:'center'}}>
             <TouchableOpacity onPress={()=>{this.setState({show:true})}}>
             <Image 
             source={{uri:'http://'+ipcim+'/'+item.film_kep}}
             style={{width:200,height:280,marginRight:10,marginTop:10,marginLeft:10,borderRadius:15}}
             />
-            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:16,fontWeight:"bold",width:155}}>{item.film_cim}</Text>
-            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:12,width:70,borderWidth:1,borderRadius:5,borderColor:"white",textAlign:"center"}}>{item.mufaj_nev}</Text>
+            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:16,fontWeight:"bold",width:180, height:40}}>{item.film_cim}</Text>
             </TouchableOpacity>
             <Modal
             transparent={true}
