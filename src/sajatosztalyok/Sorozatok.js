@@ -41,7 +41,7 @@ export default class Sorozat extends React.Component {
         console.error(error);
       });
 
-      fetch('http://'+ipcim+'/mufajok')
+      fetch('http://'+ipcim+'/mufaj')
       .then((response) => response.json())
       .then((responseJson) => {
 
