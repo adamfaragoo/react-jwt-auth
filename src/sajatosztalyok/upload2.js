@@ -30,7 +30,6 @@ function FileUpload2(props) {
                 bevitel12:props.filmmufaj,
                 bevitel13:fileName,
                 bevitel14:props.filmleiras
-
                 
               }
               fetch('http://localhost:8080/filmfelvitel', {
