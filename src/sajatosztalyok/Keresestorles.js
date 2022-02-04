@@ -74,7 +74,41 @@ export default class FetchExample extends React.Component {
           .catch((error) =>{
             console.error(error);
           });
-     
+      
+        }
+        sorozatkommenttorles=(szam)=>{
+          //alert(szam)
+          var bemenet={
+            bevitel1:szam
+          }
+      
+        fetch('http://'+ipcim+'/sorozatkommenttorles', {
+            method: "POST",
+            body: JSON.stringify(bemenet),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+          }
+        
+        )
+        .then(x => x.text())
+        .then(y => alert(y));
+      
+        }
+      
+        filmkommenttorles=(szam)=>{
+          //alert(szam)
+          var bemenet={
+            bevitel1:szam
+          }
+      
+        fetch('http://'+ipcim+'/sorozatkommenttorles', {
+            method: "POST",
+            body: JSON.stringify(bemenet),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+          }
+        
+        )
+        .then(x => x.text())
+        .then(y => alert(y));
       
         }
 
@@ -111,7 +145,12 @@ export default class FetchExample extends React.Component {
         <View style={{justifyContent:'center', borderWidth:1,width:150,borderColor:"transparent",borderRadius:10,padding:8,backgroundColor:"lightgrey",margin:7,marginLeft:15}}>
             <Text style={{color:"black",fontWeight:"bold",fontSize:15}}>{item.komment_nev}</Text>
             <Text style={{fontSize:17}}>{item.komment_szoveg}</Text>
-
+            <TouchableOpacity
+        style={styles.kekgomb}
+        onPress={async ()=>this.sorozatkommenttorles(item.komment_id)}
+      >
+        <Text style={{color:"white",fontWeight:"bold",fontSize:13}} >Törlés</Text>
+      </TouchableOpacity>
         </View>
          }
         />
@@ -142,7 +181,12 @@ export default class FetchExample extends React.Component {
         <View style={{justifyContent:'center', borderWidth:1,width:150,borderColor:"transparent",borderRadius:10,padding:8,backgroundColor:"lightgrey",margin:7,marginLeft:15}}>
             <Text style={{color:"black",fontWeight:"bold",fontSize:15}}>{item.film_komment_nev}</Text>
             <Text style={{fontSize:17}}>{item.film_komment_szoveg}</Text>
-
+            <TouchableOpacity
+        style={styles.kekgomb}
+        onPress={async ()=>this.filmkommenttorles(item.komment_id)}
+      >
+        <Text style={{color:"white",fontWeight:"bold",fontSize:15}} >Komment törlés</Text>
+      </TouchableOpacity>
         </View>
          }
         />
@@ -156,3 +200,16 @@ export default class FetchExample extends React.Component {
   }
   
 }
+const styles = StyleSheet.create({
+  
+  kekgomb: {
+    alignItems: "center",
+    backgroundColor: "blue",
+    width:50,
+    height:25,
+    marginLeft:"auto",
+    marginRight:"auto",
+    textAlign:'center',
+    justifyContent:'center'
+  }
+});

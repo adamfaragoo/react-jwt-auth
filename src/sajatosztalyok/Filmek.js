@@ -6,7 +6,7 @@ var width = Dimensions.get("window").width;
 
 const ipcim="localhost:8080";
 
-export default class Sorozat extends React.Component {
+export default class Filmek extends React.Component {
 
   constructor(props){
     super(props);
@@ -24,7 +24,7 @@ export default class Sorozat extends React.Component {
   componentDidMount(){
     document.body.style.backgroundColor = "#262626"
 
-     fetch('http://'+ipcim+'/sorozat')
+     fetch('http://'+ipcim+'/filmek')
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -70,7 +70,7 @@ export default class Sorozat extends React.Component {
 
 
     }
-    fetch('http://'+ipcim+'/kereses', {
+    fetch('http://'+ipcim+'/filmkereses', {
      method: "POST",
      body: JSON.stringify(bemenet),
      headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -100,7 +100,7 @@ export default class Sorozat extends React.Component {
     let bemenet={
       bevitel2:szam
     }
-    return fetch('http://'+ipcim+'/sorozatszures', {
+    return fetch('http://'+ipcim+'/filmszures', {
       method: "POST",
       body: JSON.stringify(bemenet),
       headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -124,7 +124,7 @@ export default class Sorozat extends React.Component {
 
   osszes= async() =>
   {
-    fetch('http://'+ipcim+'/sorozat')
+    fetch('http://'+ipcim+'/film')
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -220,10 +220,10 @@ export default class Sorozat extends React.Component {
           <View >
             <TouchableOpacity onPress={()=>{this.setState({show:true})}}>
             <Image 
-            source={{uri:'http://'+ipcim+'/'+item.sorozat_kep}}
+            source={{uri:'http://'+ipcim+'/'+item.film_kep}}
             style={{width:200,height:280,marginRight:10,marginTop:10,marginLeft:10,borderRadius:15}}
             />
-            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:16,fontWeight:"bold",width:155}}>{item.sorozat_cim}</Text>
+            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:16,fontWeight:"bold",width:155}}>{item.film_cim}</Text>
             <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:12,width:70,borderWidth:1,borderRadius:5,borderColor:"white",textAlign:"center"}}>{item.mufaj_nev}</Text>
             </TouchableOpacity>
             <Modal

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, ActivityIndicator,View, Text, TouchableOpacity, TextInput} from 'react-native-web';
 import FileUpload from "./upload"
+import FileUpload2 from "./upload2"
 
 
 const ipcim="172.16.0.29";
@@ -109,6 +110,10 @@ export default class Kezdooldal extends React.Component {
 
     </View>
 
+
+
+
+
     <View style={{alignItems:"center", marginTop:30}}>
           <TextInput
           style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30,}}
@@ -151,13 +156,13 @@ export default class Kezdooldal extends React.Component {
           placeholder='Film leírás'
         />
 
-          <FileUpload 
+          <FileUpload2 
           filmcim={this.state.filmcim} 
           filmev={this.state.filmev} 
           filmhossz={this.state.filmhossz}
           filmmufaj={this.state.filmmufaj}
           filmleiras={this.state.filmleiras}>
-          </FileUpload>
+          </FileUpload2>
 
     </View>
 

@@ -15,6 +15,7 @@ import Sorozatok from "./sajatosztalyok/Sorozatok";
 import Adattorles from "./sajatosztalyok/Adattorles";
 import Keresestorles from "./sajatosztalyok/Keresestorles";
 import Felvitel from "./sajatosztalyok/Felvitel";
+import Filmek from "./sajatosztalyok/Filmek";
 
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
@@ -66,6 +67,8 @@ class App extends Component {
         <Nav className="mr-auto">
           <Nav.Link href="/proba">Kezdőoldal</Nav.Link>
           <Nav.Link href="/sorozatok">Sorozatok</Nav.Link>
+          <Nav.Link href="/filmek">Filmek</Nav.Link>
+
           {currentUser && (
             <Nav.Link href="/user">Felhasználó</Nav.Link>
             )}
@@ -132,6 +135,8 @@ class App extends Component {
             <Route path="/Adattorles" component={Adattorles} />
             <Route path="/Keresestorles" component={Keresestorles} />
             <Route path="/Felvitel" component={Felvitel} />
+            <Route path="/Filmek" component={Filmek} />
+
         
 
 
