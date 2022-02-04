@@ -24,17 +24,16 @@ function FileUpload2(props) {
             console.log(res);
             //---------------------------------------------------------------------------//
             let bemenet={
-                bevitel1:props.sorozatcim,
-                bevitel2:props.sorozatev,
-                bevitel3:props.sorozathossz,
-                bevitel4:props.sorozatmufaj,
-                bevitel5:fileName,
-                bevitel6:props.sorozatleiras,
-                bevitel7:props.sorozatevadszam,
-                bevitel8:props.sorozatepizodszam
+                bevitel9:props.filmcim,
+                bevitel10:props.filmev,
+                bevitel11:props.filmhossz,
+                bevitel12:props.filmmufaj,
+                bevitel13:fileName,
+                bevitel14:props.filmleiras
+
                 
               }
-              fetch('http://localhost:8080/sorozatfelvitel', {
+              fetch('http://localhost:8080/filmfelvitel', {
                 method: "POST",
                 body: JSON.stringify(bemenet),
                 headers: {"Content-type": "application/json; charset=UTF-8"}
