@@ -223,38 +223,14 @@ export default class Filmek extends React.Component {
             source={{uri:'http://'+ipcim+'/'+item.film_kep}}
             style={{width:200,height:280,marginRight:10,marginTop:10,marginLeft:10,borderRadius:15}}
             />
-            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:16,fontWeight:"bold",width:180, height:40}}>{item.film_cim}</Text>
+            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:16,fontWeight:"bold",width:155, height:40, textAlign:'center'}}>{item.film_cim}</Text>
             </TouchableOpacity>
             <Modal
             transparent={true}
             visible={this.state.show}
             animationType={""}
             >
-            <View style={{backgroundColor:"#000000aa", flex:1}}>
-                <View style={{backgroundColor:"white",margin:50, padding:20, borderRadius:10}}>
-                <Text style={{fontSize:20, textAlign:'center', fontWeight:"bold"}}>Készítette:</Text>
-
-                <View style={{flexDirection:"row", alignItems:'center',marginRight:40, marginLeft:25}}>
-                <Text style={{fontSize:20, textAlign:'center', marginTop:30}}>Ákos Zsombor</Text>
-                </View>
-
-                <View style={{flexDirection:"row", alignItems:'center',marginRight:40, marginLeft:25}}>
-                <Text style={{fontSize:20, textAlign:'center', marginTop:10}}>Faragó Ádám</Text>
-                </View>
-                <View>
-                <Text style={{fontSize:10, textAlign:'center', top:90,position:'absolute', left:20}}>2022</Text>
-
-                </View>
-                
-                
-                <TouchableOpacity onPress={()=>{this.setState({show:false})}}>
-                <View style={{alignItems:"center", marginTop:70,}}>
-                  <Text>bezárás </Text>
-            </View>
-            </TouchableOpacity>
-                </View>
-
-            </View>
+            
             </Modal>
             
           </View>

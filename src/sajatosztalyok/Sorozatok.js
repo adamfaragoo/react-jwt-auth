@@ -227,9 +227,10 @@ export default class Sorozat extends React.Component {
             <Modal
             transparent={true}
             visible={this.state.show}
-            animationType={""}
+            animationType={""}            
+            
             >
-            <View style={{backgroundColor:"#000000aa", flex:1}}>
+            <View style={{backgroundColor:'rgb(0,0,0,0.5)',  flex:1, }}>
                 <View style={{backgroundColor:"white",margin:50, padding:20, borderRadius:10}}>
                 <Text style={{fontSize:20, textAlign:'center', fontWeight:"bold"}}>Készítette:</Text>
 
