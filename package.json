@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-native-community/picker": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^7.1.2",
@@ -15,6 +16,7 @@
     "react-bootstrap": "^2.1.1",
     "react-dom": "^16.13.0",
     "react-iframe": "^1.8.0",
+    "react-native-picker-select": "^8.0.4",
     "react-native-vector-icons": "^9.0.0",
     "react-native-web": "^0.17.5",
     "react-refresh": "^0.11.0",
