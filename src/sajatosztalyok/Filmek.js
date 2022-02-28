@@ -234,6 +234,24 @@ export default class Sorozat extends React.Component {
 
  
    }
+   tetszik = ()=>{
+     let bemenet ={
+       bevitel4:this.state.filmid
+     }
+    fetch('http://'+ipcim+'/filmlike', {
+      method: "POST",
+      body: JSON.stringify(bemenet),
+      headers: {"Content-type": "application/json; charset=UTF-8"}
+      } )
+      .then((response) => response.json())
+      .then(() => {
+
+        
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+   }
 
    kivalaszt = async(szam)=>{
     //alert(szam)
@@ -413,6 +431,23 @@ export default class Sorozat extends React.Component {
               />
               
               </View>
+              <View style={{flexDirection:"row",padding:10,justifyContent:"flex-end"}}>
+                 <View>
+                  <TouchableOpacity
+                  onPress={()=>this.tetszik()}
+                  style={{borderWidth:1,bordercolor:"grey",backgroundColor:"green", borderRadius:100,}}
+                  >
+                    <Text style={{color:"white",padding:8}}>Tetszik</Text>
+                  </TouchableOpacity>
+                 </View>
+                 <View>
+                 <TouchableOpacity
+                 style={{borderWidth:1,bordercolor:"grey",backgroundColor:"red",borderRadius:100,}}
+                 >
+                 <Text style={{color:"white",padding:8}}>Nem tetszik</Text>
+                  </TouchableOpacity>
+                 </View>
+                 </View>
               
               <View style={styles.infok}>
                 <Text style={{color:"white",fontSize:25,textAlign:"center"}}>{this.state.filmcim}</Text>
