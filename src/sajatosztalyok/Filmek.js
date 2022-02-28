@@ -251,7 +251,29 @@ export default class Sorozat extends React.Component {
       .catch((error) =>{
         console.error(error);
       });
+
+      
    }
+   nemtetszik = ()=>{
+    let bemenet ={
+      bevitel5:this.state.filmid
+    }
+   fetch('http://'+ipcim+'/filmdislike', {
+     method: "POST",
+     body: JSON.stringify(bemenet),
+     headers: {"Content-type": "application/json; charset=UTF-8"}
+     } )
+     .then((response) => response.json())
+     .then(() => {
+
+       
+     })
+     .catch((error) =>{
+       console.error(error);
+     });
+
+     
+  }
 
    kivalaszt = async(szam)=>{
     //alert(szam)
@@ -442,6 +464,7 @@ export default class Sorozat extends React.Component {
                  </View>
                  <View>
                  <TouchableOpacity
+                 onPress={()=>this.nemtetszik()}
                  style={{borderWidth:1,bordercolor:"grey",backgroundColor:"red",borderRadius:100,}}
                  >
                  <Text style={{color:"white",padding:8}}>Nem tetszik</Text>
