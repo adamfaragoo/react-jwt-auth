@@ -533,7 +533,7 @@ export default class Sorozat extends React.Component {
           data={this.state.dataSource3}
           keyExtractor={({film_komment_id}) => film_komment_id} 
           renderItem={({item}) =>
-          <View style={{borderWidth:1,width:150,borderColor:"transparent",borderRadius:10,padding:8,backgroundColor:"lightgrey",margin:7,marginLeft:15}}>
+          <View style={{borderWidth:1,alignSelf: 'flex-start',borderColor:"transparent",borderRadius:10,padding:8,backgroundColor:"lightgrey",margin:7,marginLeft:15}}>
             <Text style={{color:"black",fontWeight:"bold",fontSize:15}}>{item.film_komment_nev}</Text>
             <Text style={{fontSize:17}}>{item.film_komment_szoveg}</Text>
             

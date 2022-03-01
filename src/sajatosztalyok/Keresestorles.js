@@ -100,7 +100,7 @@ export default class FetchExample extends React.Component {
             bevitel1:szam
           }
       
-        fetch('http://'+ipcim+'/sorozatkommenttorles', {
+        fetch('http://'+ipcim+'/filmkommenttorles', {
             method: "POST",
             body: JSON.stringify(bemenet),
             headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -183,7 +183,7 @@ export default class FetchExample extends React.Component {
             <Text style={{fontSize:17}}>{item.film_komment_szoveg}</Text>
             <TouchableOpacity
         style={styles.kekgomb}
-        onPress={async ()=>this.filmkommenttorles(item.komment_id)}
+        onPress={async ()=>this.filmkommenttorles(item.film_komment_id)}
       >
         <Text style={{color:"white",fontWeight:"bold",fontSize:15}} >Komment törlés</Text>
       </TouchableOpacity>
