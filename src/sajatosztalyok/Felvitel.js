@@ -2,12 +2,12 @@ import React from 'react';
 import { FlatList, ActivityIndicator,View, Text, TouchableOpacity, TextInput} from 'react-native-web';
 import FileUpload from "./upload"
 import FileUpload2 from "./upload2"
+import { Picker } from 'react-native-web';
+
+const ipcim="localhost:8080";
 
 
-const ipcim="172.16.0.29";
-
-
-export default class Kezdooldal extends React.Component {
+export default class Felvitel extends React.Component {
 
   constructor(props){
     super(props);
@@ -20,11 +20,16 @@ export default class Kezdooldal extends React.Component {
       sorozatleiras:'',
       sorozatevadszam:'',
       sorozatepizodszam:'',
+      sorozatlink:'',
       filmcim:'',
       filmev:'',
       filmhossz:'',
       filmmufaj:'',
       filmleiras:'',
+      filmlink:'',
+      valaszt:0,
+      dataSource:[],
+      dataSource2:[]
 
 
     }
@@ -34,6 +39,45 @@ export default class Kezdooldal extends React.Component {
   componentDidMount(){
     document.body.style.backgroundColor = "#262626"
 
+    fetch('http://'+ipcim+'/mufaj')
+    .then((response) => response.json())
+    .then((responseJson) => {
+
+      this.setState({
+        isLoading: false,
+        dataSource: responseJson,
+      }, function(){
+
+      });
+      
+
+    })
+
+    
+    .catch((error) =>{
+      console.error(error);
+    });
+
+    fetch('http://'+ipcim+'/filmmufaj')
+    .then((response) => response.json())
+    .then((responseJson) => {
+
+      this.setState({
+        isLoading: false,
+        dataSource2: responseJson,
+      }, function(){
+
+      });
+      
+
+    })
+
+    
+    .catch((error) =>{
+      console.error(error);
+    });
+    
+    
     
 
   }
@@ -42,7 +86,7 @@ export default class Kezdooldal extends React.Component {
 
     return(
         <View style={{flexDirection:"row"}}>
-          <View style={{alignItems:"left", marginTop:30}}>
+          <View style={{flex:3, marginTop:30,alignItems:"center"}}>
           <TextInput
           style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30,}}
           onChangeText={(sorozatcim) => this.setState({sorozatcim})}
@@ -66,13 +110,18 @@ export default class Kezdooldal extends React.Component {
           multiline={true}
           placeholder='Sorozat hossz'
         />
-            <TextInput
-          style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
-          onChangeText={(sorozatmufaj) => this.setState({sorozatmufaj})}
-          value={this.state.sorozatmufaj}
-          multiline={true}
-          placeholder='Sorozat műfaj'
-        />
+
+        <Picker
+        selectedValue={this.state.valaszt}
+        style={{ height: 35, width: 200,marginBottom:10, marginLeft:30}}
+        onValueChange={(itemValue) => this.setState({valaszt:itemValue})}
+        >
+        {this.state.dataSource.map((item) => (
+          <Picker.Item key={item.mufaj_id} label={item.mufaj_nev} value={item.mufaj_id} />
+        ))}
+       
+       
+      </Picker>
 
       
 
@@ -98,14 +147,23 @@ export default class Kezdooldal extends React.Component {
           multiline={true}
           placeholder='Sorozat epizódszám'
         />
+         <TextInput
+          style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
+          onChangeText={(sorozatlink) => this.setState({sorozatlink})}
+          value={this.state.sorozatlink}
+          multiline={true}
+          placeholder='Sorozat linkje'
+        />
           <FileUpload 
           sorozatcim={this.state.sorozatcim} 
           sorozatev={this.state.sorozatev} 
           sorozathossz={this.state.sorozathossz}
-          sorozatmufaj={this.state.sorozatmufaj}
+          sorozatmufaj={this.state.valaszt}
           sorozatleiras={this.state.sorozatleiras}
           sorozatevadszam={this.state.sorozatevadszam}
-          sorozatepizodszam={this.state.sorozatepizodszam}>
+          sorozatepizodszam={this.state.sorozatepizodszam}
+          sorozatlink={this.state.sorozatlink}>
+            
           </FileUpload>
 
     </View>
@@ -114,7 +172,7 @@ export default class Kezdooldal extends React.Component {
 
 
 
-    <View style={{alignItems:"center", marginTop:30}}>
+    <View style={{flex:3,alignItems:"center", marginTop:30}}>
           <TextInput
           style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30,}}
           onChangeText={(filmcim) => this.setState({filmcim})}
@@ -155,13 +213,21 @@ export default class Kezdooldal extends React.Component {
           multiline={true}
           placeholder='Film leírás'
         />
+        <TextInput
+          style={{borderRadius:15, borderWidth:1,padding:5,marginBottom:10,color:"white",backgroundColor:"lightgrey",borderColor:"transparent",color:"black",width:200,height:35,marginLeft:30}}
+          onChangeText={(filmlink) => this.setState({filmlink})}
+          value={this.state.filmlink}
+          multiline={true}
+          placeholder='Film linkje'
+        />
 
           <FileUpload2 
           filmcim={this.state.filmcim} 
           filmev={this.state.filmev} 
           filmhossz={this.state.filmhossz}
           filmmufaj={this.state.filmmufaj}
-          filmleiras={this.state.filmleiras}>
+          filmleiras={this.state.filmleiras}
+          filmlink={this.state.filmlink}>
           </FileUpload2>
 
     </View>
