@@ -1,10 +1,10 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View,Image, ImageBackground, TouchableOpacity, Dimensions, ScrollView  } from 'react-native-web';
+import { FlatList, ActivityIndicator, Text, View,Image, ImageBackground, TouchableOpacity, Dimensions, ScrollView,Modal,Pressable,TextInput,StyleSheet  } from 'react-native-web';
 import Iframe from 'react-iframe'
 
 var height = Dimensions.get("window").height;
 var width = Dimensions.get("window").width;
-const ipcim="172.16.0.29";
+const ipcim="localhost:8080";
 
 
 export default class Kezdooldal extends React.Component {
@@ -13,61 +13,75 @@ export default class Kezdooldal extends React.Component {
     super(props);
     this.state ={ 
       isLoading: true,
-      dataSource:[],
-      dataSource2:[],
+      legfrisebbfilm:[],
+      legfrissebbsorozat:[],
+      legnezettebbsorozat:[],
+      legnezettebbfilm:[],
+      sorozatsajatadatok:[],
+      filmsajatadatok:[],
+      sorozatkommentek:[],
+      filmkommentek:[],
+      sorozatlink:[],
+      filmlink:[],
+      komment:"",
+      nev:"",
+      sorozatid:0,
+      sorozatcim:"",
+      filmid:0,
+      filmcim:"",
+      modalVisible:false,
+      modalVisible2:false,
+      tetsziksorozattomb:[],
+      nemtetsziksorozattomb:[],
+      tetszikfilmtomb:[],
+      nemtetszikfilmtomb:[],
+
     }
     
-    setInterval(()=>{
-      
-      fetch('http://'+ipcim+':3000/legjobbfilmek')
-      .then((response) => response.json())
-      .then((responseJson) => {
-
-        this.setState({
-          isLoading: false,
-          dataSource: responseJson,
-        }, function(){
-
-        });
-
-      })
-      .catch((error) =>{
-        console.error(error);
-      });
-
-      fetch('http://'+ipcim+':3000/legjobbsorozatok')
-      .then((response) => response.json())
-      .then((responseJson) => {
-
-        this.setState({
-          isLoading: false,
-          dataSource2: responseJson,
-        }, function(){
-
-        });
-
-      })
-      .catch((error) =>{
-        console.error(error);
-      })
-
-     
-    }
-    ,2000)
+    
   }
 
   componentDidMount(){
+  fetch('http://'+ipcim+'/legfrissebbfilmek')
+      .then((response) => response.json())
+      .then((responseJson) => {
 
- 
+        this.setState({
+          isLoading: false,
+          legfrissebbfilm: responseJson,
+        }, function(){
+
+        });
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+
+      fetch('http://'+ipcim+'/legfrissebbsorozatok')
+      .then((response) => response.json())
+      .then((responseJson) => {
+
+        this.setState({
+          isLoading: false,
+          legfrissebbsorozat: responseJson,
+        }, function(){
+
+        });
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+
     
-
-  fetch('http://'+ipcim+':3000/legjobbfilmek')
+      fetch('http://'+ipcim+'/legnezettebbsorozatok')
       .then((response) => response.json())
       .then((responseJson) => {
 
         this.setState({
           isLoading: false,
-          dataSource: responseJson,
+          legnezettebbsorozat: responseJson,
         }, function(){
 
         });
@@ -77,13 +91,13 @@ export default class Kezdooldal extends React.Component {
         console.error(error);
       });
 
-      fetch('http://'+ipcim+':3000/legjobbsorozatok')
+      fetch('http://'+ipcim+'/legnezettebbfilmek')
       .then((response) => response.json())
       .then((responseJson) => {
 
         this.setState({
           isLoading: false,
-          dataSource2: responseJson,
+          legnezettebbfilm: responseJson,
         }, function(){
 
         });
@@ -92,10 +106,499 @@ export default class Kezdooldal extends React.Component {
       .catch((error) =>{
         console.error(error);
       });
-
 
   }
 
+  setModalVisible = (id,cim) => {
+    this.setState({
+      sorozatid: id,
+      modalVisible:true,
+      sorozatcim:cim,
+    })
+
+    let bemenet = {
+      bevitel1:id
+    }
+
+    fetch('http://'+ipcim+'/sorozatlink', {
+      method: "POST",
+      body: JSON.stringify(bemenet),
+      headers: {"Content-type": "application/json; charset=UTF-8"}
+    }
+    )
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoading: false,
+          sorozatlink: responseJson,
+        }, function(){
+ 
+        });
+ 
+      })
+      .catch((error) =>{
+        console.error();
+      });
+
+      let bemenet1 = {
+        bevitel3:id
+      }
+      fetch('http://'+ipcim+'/kommentek', {
+        method: "POST",
+        body: JSON.stringify(bemenet1),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+        } )
+        .then((response) => response.json())
+        .then((responseJson) => {
+    
+          this.setState({
+            isLoading: false,
+            sorozatkommentek: responseJson,
+          }, function(){
+    
+          });
+        })
+        .catch((error) =>{
+          console.error(error);
+        });
+
+        fetch('http://'+ipcim+'/sorozatsajatadatok', {
+        method: "POST",
+        body: JSON.stringify(bemenet1),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+        } )
+        .then((response) => response.json())
+        .then((responseJson) => {
+    
+          this.setState({
+            isLoading: false,
+            sorozatsajatadatok: responseJson,
+          }, function(){
+    
+          });
+        })
+        .catch((error) =>{
+          console.error(error);
+        });
+
+        let bemenet2 ={
+          bevitel4:id
+        }
+        fetch('http://'+ipcim+'/sorozatlike', {
+          method: "POST",
+          body: JSON.stringify(bemenet2),
+          headers: {"Content-type": "application/json; charset=UTF-8"}
+          } )
+          .then((response) => response.json())
+          .then((responseJson) => {
+      
+            this.setState({
+              isLoading: false,
+              tetsziksorozattomb: responseJson,
+            }, function(){
+      
+            });
+          })
+          .catch((error) =>{
+            console.error(error);
+          });
+
+          fetch('http://'+ipcim+'/sorozatdislike', {
+            method: "POST",
+            body: JSON.stringify(bemenet2),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+            } )
+            .then((response) => response.json())
+            .then((responseJson) => {
+        
+              this.setState({
+                isLoading: false,
+                nemtetsziksorozattomb: responseJson,
+              }, function(){
+        
+              });
+            })
+            .catch((error) =>{
+              console.error(error);
+            });
+      }
+
+      felvitel = ()=> {
+        let bemenet={
+          bevitel1:this.state.nev,
+          bevitel2:this.state.komment,
+          bevitel3:this.state.sorozatid
+        }
+    
+        let bemenet1 = {
+          bevitel3:this.state.sorozatid
+        }
+        fetch('http://'+ipcim+'/kommentfelvitel', {
+          method: "POST",
+          body: JSON.stringify(bemenet),
+          headers: {"Content-type": "application/json; charset=UTF-8"}
+          } )
+          .then((response) => response.text())
+          .then(() => {
+            
+            fetch('http://'+ipcim+'/kommentek', {
+              method: "POST",
+              body: JSON.stringify(bemenet1),
+              headers: {"Content-type": "application/json; charset=UTF-8"}
+              } )
+              .then((response) => response.json())
+              .then((responseJson) => {
+          
+                this.setState({
+                  isLoading: false,
+                  sorozatkommentek: responseJson,
+                }, function(){
+          
+                });
+              })
+              .catch((error) =>{
+                console.error(error);
+              });
+            
+      
+          })
+          .catch((error) =>{
+            console.error(error);
+          });
+    
+          this.setState({komment:""})
+          this.setState({nev:""})
+
+          
+        }
+
+      setModalVisible2 = (id,cim) => {
+        this.setState({
+          filmid: id,
+          modalVisible2:true,
+          filmcim:cim,
+        })
+    
+        let bemenet = {
+          bevitel1:id
+        }
+    
+        fetch('http://'+ipcim+'/filmlink', {
+          method: "POST",
+          body: JSON.stringify(bemenet),
+          headers: {"Content-type": "application/json; charset=UTF-8"}
+        }
+        )
+          .then((response) => response.json())
+          .then((responseJson) => {
+            this.setState({
+              isLoading: false,
+              filmlink: responseJson,
+            }, function(){
+     
+            });
+     
+          })
+          .catch((error) =>{
+            console.error();
+          });
+    
+          let bemenet1 = {
+            bevitel3:id
+          }
+          fetch('http://'+ipcim+'/filmkommentek', {
+            method: "POST",
+            body: JSON.stringify(bemenet1),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+            } )
+            .then((response) => response.json())
+            .then((responseJson) => {
+        
+              this.setState({
+                isLoading: false,
+                filmkommentek: responseJson,
+              }, function(){
+        
+              });
+            })
+            .catch((error) =>{
+              console.error(error);
+            });
+    
+            fetch('http://'+ipcim+'/filmsajatadatok', {
+            method: "POST",
+            body: JSON.stringify(bemenet1),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+            } )
+            .then((response) => response.json())
+            .then((responseJson) => {
+        
+              this.setState({
+                isLoading: false,
+                filmsajatadatok: responseJson,
+              }, function(){
+        
+              });
+            })
+            .catch((error) =>{
+              console.error(error);
+            });
+
+            let bemenet2 ={
+              bevitel4:id
+            }
+            fetch('http://'+ipcim+'/filmlike', {
+              method: "POST",
+              body: JSON.stringify(bemenet2),
+              headers: {"Content-type": "application/json; charset=UTF-8"}
+              } )
+              .then((response) => response.json())
+              .then((responseJson) => {
+          
+                this.setState({
+                  isLoading: false,
+                  tetszikfilmtomb: responseJson,
+                }, function(){
+          
+                });
+              })
+              .catch((error) =>{
+                console.error(error);
+              });
+    
+              fetch('http://'+ipcim+'/filmdislike', {
+                method: "POST",
+                body: JSON.stringify(bemenet2),
+                headers: {"Content-type": "application/json; charset=UTF-8"}
+                } )
+                .then((response) => response.json())
+                .then((responseJson) => {
+            
+                  this.setState({
+                    isLoading: false,
+                    nemtetszikfilmtomb: responseJson,
+                  }, function(){
+            
+                  });
+                })
+                .catch((error) =>{
+                  console.error(error);
+                });
+              
+      }
+
+      felvitel2 = ()=> {
+        let bemenet={
+          bevitel1:this.state.nev,
+          bevitel2:this.state.komment,
+          bevitel3:this.state.filmid
+        }
+    
+        let bemenet1 = {
+          bevitel3:this.state.filmid
+        }
+        fetch('http://'+ipcim+'/filmkommentfelvitel', {
+          method: "POST",
+          body: JSON.stringify(bemenet),
+          headers: {"Content-type": "application/json; charset=UTF-8"}
+          } )
+          .then((response) => response.text())
+          .then(() => {
+    
+            fetch('http://'+ipcim+'/filmkommentek', {
+              method: "POST",
+              body: JSON.stringify(bemenet1),
+              headers: {"Content-type": "application/json; charset=UTF-8"}
+              } )
+              .then((response) => response.json())
+              .then((responseJson) => {
+          
+                this.setState({
+                  isLoading: false,
+                  filmkommentek: responseJson,
+                }, function(){
+          
+                });
+              })
+              .catch((error) =>{
+                console.error(error);
+              });
+            
+          })
+          .catch((error) =>{
+            console.error(error);
+          });
+    
+          this.setState({komment:""})
+          this.setState({nev:""})
+        }
+
+
+  tetsziksorozat = ()=>{
+    let bemenet1 ={
+      bevitel4:this.state.sorozatid
+    }
+     let bemenet ={
+       bevitel4:this.state.sorozatid
+     }
+    fetch('http://'+ipcim+'/sorozatlikefelvitel', {
+      method: "POST",
+      body: JSON.stringify(bemenet),
+      headers: {"Content-type": "application/json; charset=UTF-8"}
+      } )
+      .then((response) => response.json())
+      .then(() => {
+        fetch('http://'+ipcim+'/sorozatlike', {
+          method: "POST",
+          body: JSON.stringify(bemenet1),
+          headers: {"Content-type": "application/json; charset=UTF-8"}
+          } )
+          .then((response) => response.json())
+          .then((responseJson) => {
+      
+            this.setState({
+              isLoading: false,
+              tetsziksorozattomb: responseJson,
+            }, function(){
+      
+            });
+          })
+          .catch((error) =>{
+            console.error(error);
+          });
+        
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+
+      
+   }
+   nemtetsziksorozat = ()=>{
+     let bemenet1={
+       bevitel4:this.state.sorozatid
+     }
+    let bemenet ={
+      bevitel5:this.state.sorozatid
+    }
+   fetch('http://'+ipcim+'/sorozatdislikefelvitel', {
+     method: "POST",
+     body: JSON.stringify(bemenet),
+     headers: {"Content-type": "application/json; charset=UTF-8"}
+     } )
+     .then((response) => response.json())
+     .then(() => {
+
+      fetch('http://'+ipcim+'/sorozatdislike', {
+        method: "POST",
+        body: JSON.stringify(bemenet1),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+        } )
+        .then((response) => response.json())
+        .then((responseJson) => {
+    
+          this.setState({
+            isLoading: false,
+            nemtetsziksorozattomb: responseJson,
+          }, function(){
+    
+          });
+        })
+        .catch((error) =>{
+          console.error(error);
+        });
+      
+    })
+
+     .catch((error) =>{
+       console.error(error);
+     });
+
+     
+  }
+
+  tetszikfilm = ()=>{
+    let bemenet1 ={
+      bevitel4:this.state.filmid
+    }
+     let bemenet ={
+       bevitel4:this.state.filmid
+     }
+    fetch('http://'+ipcim+'/filmlikefelvitel', {
+      method: "POST",
+      body: JSON.stringify(bemenet),
+      headers: {"Content-type": "application/json; charset=UTF-8"}
+      } )
+      .then((response) => response.json())
+      .then(() => {
+        fetch('http://'+ipcim+'/filmlike', {
+          method: "POST",
+          body: JSON.stringify(bemenet1),
+          headers: {"Content-type": "application/json; charset=UTF-8"}
+          } )
+          .then((response) => response.json())
+          .then((responseJson) => {
+      
+            this.setState({
+              isLoading: false,
+              tetszikfilmtomb: responseJson,
+            }, function(){
+      
+            });
+          })
+          .catch((error) =>{
+            console.error(error);
+          });
+        
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+
+      
+   }
+   nemtetszikfilm = ()=>{
+     let bemenet1={
+       bevitel4:this.state.filmid
+     }
+    let bemenet ={
+      bevitel5:this.state.filmid
+    }
+   fetch('http://'+ipcim+'/filmdislikefelvitel', {
+     method: "POST",
+     body: JSON.stringify(bemenet),
+     headers: {"Content-type": "application/json; charset=UTF-8"}
+     } )
+     .then((response) => response.json())
+     .then(() => {
+
+      fetch('http://'+ipcim+'/filmdislike', {
+        method: "POST",
+        body: JSON.stringify(bemenet1),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+        } )
+        .then((response) => response.json())
+        .then((responseJson) => {
+    
+          this.setState({
+            isLoading: false,
+            nemtetszikfilmtomb: responseJson,
+          }, function(){
+    
+          });
+        })
+        .catch((error) =>{
+          console.error(error);
+        });
+      
+    })
+
+     .catch((error) =>{
+       console.error(error);
+     });
+
+     
+  }
   
 
 
@@ -111,89 +614,459 @@ export default class Kezdooldal extends React.Component {
 
     return(
 
-      <ScrollView style={{flex:1, paddingTop:20,backgroundColor:"#262626",flexDirection:'column'}}>
-        <Iframe url="http://www.youtube.com/embed/xDMP3i36naA"
-        width="450px"
-        height="450px"
-        id="myId"
-        className="myClassname"
-        display="initial"
-        position="relative"/>
+      <ScrollView style={{flex:1, paddingTop:20,backgroundColor:"#262626",flexDirection:'column', }}>
+        <View style={{height:height*0.6,margin:5}}>
+          <Text style={{margin:5}}>
+          <Text style={{color:'white', fontSize:17, textAlign:'left', marginLeft:10, fontWeight:'bold'}}>Legújabb</Text>
+          <Text style={{color:'white', fontSize:17, textAlign: 'left'}}> Sorozatok</Text>
+          </Text>
+          <FlatList 
+            style={{height:60,textAlign:"center"}}
+            showsHorizontalScrollIndicator={false}
+            data={this.state.legfrissebbsorozat}
+            horizontal
+            //numColumns={2}
+            keyExtractor={({sorozat_id}, index) => sorozat_id}
+            renderItem={({item}) => 
+              <TouchableOpacity onPress={async()=>this.setModalVisible(item.sorozat_id,item.sorozat_cim)}>
+              <Image 
+              source={{uri:'http://'+ipcim+'/'+item.sorozat_kep}}
+              style={{width:200,height:280,margin:5,borderRadius:15}}
+              />
+            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:16,fontWeight:"bold",width:180,height:40}}>{item.sorozat_cim}</Text>
+              </TouchableOpacity>
 
-
-        <View style={{height:height*0.35}}>
+    
+          }
+          />
           </View>
-      <View style={{height:height*0.30}}>
 
-      <Text style={{paddingBottom:5, marginLeft:10}}> 
-      <Text style={{color:'white', fontSize:17, textAlign:'left', marginLeft:10, fontWeight:'bold'}}>Legnagyobb értékelésű</Text>
-      <Text style={{color:'white', fontSize:17, textAlign: 'left'}}> Sorozatok</Text>
-      </Text>        
+          <View style={{height:height*0.6,margin:5,}}>
+          <Text style={{margin:5}}>
+          <Text style={{color:'white', fontSize:17, textAlign:'left', marginLeft:10, fontWeight:'bold'}}>Legnézettebb</Text>
+          <Text style={{color:'white', fontSize:17, textAlign: 'left'}}> Sorozatok</Text>
+          </Text>
+          <FlatList 
+            style={{height:60, textAlign:"center"}}
+            showsHorizontalScrollIndicator={false}
+            data={this.state.legnezettebbsorozat}
+            horizontal
+            //numColumns={2}
+            keyExtractor={({sorozat_id}, index) => sorozat_id}
+            renderItem={({item}) =>
+              <TouchableOpacity onPress={async()=>this.setModalVisible(item.sorozat_id,item.sorozat_cim)} >
+              <Image 
+              source={{uri:'http://'+ipcim+'/'+item.sorozat_kep}}
+              style={{width:200,height:280,margin:5,borderRadius:15}}
+              />
+            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:16,fontWeight:"bold",width:180,height:40}}>{item.sorozat_cim}</Text>
+              </TouchableOpacity>
 
-      <FlatList 
-          style={{height:60,}}
+    
+          }
+          />
+          </View>
+
+          <View style={{height:height*0.6,margin:5,}}>
+          <Text style={{margin:5}}>
+          <Text style={{color:'white', fontSize:17, textAlign:'left', marginLeft:10, fontWeight:'bold'}}>Legnézettebb</Text>
+          <Text style={{color:'white', fontSize:17, textAlign: 'left'}}> Filmek</Text>
+          </Text>
+          <FlatList 
+            style={{height:60, textAlign:"center"}}
+            showsHorizontalScrollIndicator={false}
+            data={this.state.legnezettebbfilm}
+            horizontal
+            //numColumns={2}
+            keyExtractor={({film_id}, index) => film_id}
+            renderItem={({item}) =>
+              <TouchableOpacity onPress={async()=>this.setModalVisible2(item.film_id,item.film_cim)} >
+              <Image 
+              source={{uri:'http://'+ipcim+'/'+item.film_kep}}
+              style={{width:200,height:280,margin:5,borderRadius:15}}
+              />
+            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:16,fontWeight:"bold",width:180,height:40}}>{item.film_cim}</Text>
+              </TouchableOpacity>
+
+    
+          }
+          />
+          </View>
+
+          <View style={{height:height*0.6,margin:5,}}>
+          <Text style={{paddingBottom:5, marginLeft:10}}> 
+          <Text style={{color:'white', fontSize:17, textAlign:'left', marginLeft:10, fontWeight:'bold',paddingBottom:5,}}>Legújabb</Text>
+          <Text style={{color:'white', fontSize:17, textAlign: 'left', paddingBottom:5}}> Filmek </Text>
+          </Text>
+          <FlatList 
+          style={{height:60, textAlign:"center"}}
           showsHorizontalScrollIndicator={false}
-          data={this.state.dataSource2}
+          data={this.state.legfrissebbfilm}
           horizontal
-          //numColumns={2}
-          keyExtractor={({sorozat_id}, index) => sorozat_id}
+          keyExtractor={({film_id}) => film_id}
           renderItem={({item}) =>
-            <TouchableOpacity 
-            onPress={async()=>this.props.navigation.navigate('Sorozatsajat',{sorozatnev:item.sorozat_cim,
-            sorozathossz:item.sorozat_hossz,
-            sorozatid:item.sorozat_id,
-            sorozatleiras:item.sorozat_leiras,
-            sorozatev:item.sorozat_ev,
-            sorozatido:item.sorozat_hossz,
-            sorozatevad:item.sorozat_evadszam,
-            sorozatepizod:item.sorozat_epizodszam
-            })}>
+            <TouchableOpacity onPress={async()=>this.setModalVisible2(item.film_id,item.film_cim)}>
             <Image 
-            source={{uri:'http://'+ipcim+':3000/'+item.sorozat_kep}}
-            style={{width:120,height:170,margin:5,borderRadius:15}}
-            />
-            <Text style={{color:"white",fontSize:13,fontWeight:"bold",textAlign:"center", width:135, }}>{item.sorozat_cim}</Text>
-            </TouchableOpacity>
-
-  
-        }
-        />
-        </View>
-
-        <View style={{height:height*0.35}}>
-        <Text style={{paddingBottom:5, marginLeft:10}}> 
-      <Text style={{color:'white', fontSize:17, textAlign:'left', marginLeft:10, fontWeight:'bold',paddingBottom:5,}}>Legnagyobb értékelésű</Text>
-      <Text style={{color:'white', fontSize:17, textAlign: 'left', paddingBottom:5}}> Filmek </Text>
-      </Text>
-        <FlatList 
-          style={{height:60}}
-          showsHorizontalScrollIndicator={false}
-          data={this.state.dataSource}
-          horizontal
-          keyExtractor={({film_id}, index) => film_id}
-          renderItem={({item}) =>
-            <TouchableOpacity 
-            onPress={async()=>this.props.navigation.navigate('Filmsajat',
-            {
-            filmid:item.film_id,
-            filmnev:item.film_cim,
-            filmev:item.film_ev,
-            filmhossz:item.film_hossz,
-            filmleiras:item.film_leiras
-            })}>
-            <Image 
-            source={{uri:'http://'+ipcim+':3000/'+item.film_kep}}
-            style={{width:120,height:170,margin:5,borderRadius:15}}
+            source={{uri:'http://'+ipcim+'/'+item.film_kep}}
+            style={{width:200,height:280,margin:5,borderRadius:15}}
             />        
-            <Text style={{color:"white",fontSize:13,fontWeight:"bold",textAlign:"center", width:125, alignItems:'center' }}>{item.film_cim}</Text>
+            <Text style={{color:"white",marginLeft:15,marginTop:5,fontSize:16,fontWeight:"bold",width:180,height:40}}>{item.film_cim}</Text>
             </TouchableOpacity>
   
+          }
+          />
+          </View>
+
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={this.state.modalVisible}
+          >
+            
+              <ScrollView style={{backgroundColor: 'rgba(0,0,0,0.5)'}}>
+              <Pressable
+                  style={styles.button}
+                  onPress={() => this.setState({modalVisible : false})}
+                >
+                  <Text style={styles.textStyle}>X</Text>
+                  
+                </Pressable>
+                
+               <View style={styles.modalView}>
+                <View style={{alignItems:"center",justifyContent:"center"}}>
+                <FlatList
+                data={this.state.sorozatlink}
+                keyExtractor={({sorozat_id}) => sorozat_id}
+                
+                renderItem={({item}) => 
+
+                <View>
+                  {item.sorozat_link === "" ? <Text>Nincs link</Text>:
+                  <Iframe
+                  url ={item.sorozat_link}
+                  width="850px"
+                  height="450px"
+                  id="MyId"
+                  className="MyClassName"
+                  display = "initial"
+                  position = "relative"
+                  />
+                }
+                </View>
+              }
+              />
+              
+              </View>
+              <View style={{flexDirection:"row",padding:10,justifyContent:"flex-end"}}>
+                 <View>
+                  <TouchableOpacity
+                  onPress={()=>this.tetsziksorozat()}
+                  style={{borderWidth:1,bordercolor:"grey",backgroundColor:"green", borderRadius:100, width:70}}
+                  >
+                    <Text style={{color:"white",padding:6, textAlign: "center"}}>Tetszik</Text>
+                  </TouchableOpacity>
+                   <FlatList
+                   data={this.state.tetsziksorozattomb}
+                   keyExtractor={({sorozat_id}) => sorozat_id} 
+                   renderItem={({item}) =>
+                   <View style={{textAlign:'center'}}>
+                   <Text style={{fontSize:16,color:"white", }}>{item.sorozat_like}</Text>
+                  </View>
+                    }
+                   />
+                 </View>
+                 <View>
+                 <TouchableOpacity
+                 onPress={()=>this.nemtetsziksorozat()}
+                 style={{borderWidth:1,bordercolor:"grey",backgroundColor:"red",width:100, borderRadius:100,justifyContent:"center"}}
+                 >
+                 <Text style={{color:"white",textAlign: "center", padding:5, paddingBottom:8}}>Nem tetszik</Text>
+                  </TouchableOpacity>
+                  <FlatList
+                   data={this.state.nemtetsziksorozattomb}
+                   keyExtractor={({sorozat_id}) => sorozat_id} 
+                   renderItem={({item}) =>
+                   <View style={{textAlign:'center'}}>
+                   <Text style={{fontSize:16,color:"white", }}>{item.sorozat_dislike}</Text>
+                  </View>
+                    }
+                   />
+                 </View>
+                 </View>
+              
+              <View style={styles.infok}>
+                <Text style={{color:"white",fontSize:25,textAlign:"center"}}>{this.state.sorozatcim}</Text>
+                <FlatList
+                data={this.state.sorozatsajatadatok}
+                keyExtractor={({sorozat_id}) => sorozat_id} 
+                renderItem={({item}) =>
+            <View style={{margin:10}} >
+              <Text style={{fontSize:22,color:"#2596be",fontWeight:"bold"}}>Leírás:</Text>
+            <Text style={{fontSize:15,color:"white",padding:2}}>{item.sorozat_leiras}</Text>
+            <Text style={{fontSize:22,color:"#2596be",fontWeight:"bold",marginTop:2}}>További infók:</Text>
+            <Text>
+              <Text style={{fontSize:16,color:"white",fontWeight:"bold"}}>Műfaj: </Text>
+              <Text style={{fontSize:16,color:"white"}}>{item.mufaj_nev}</Text>
+            </Text>
+            <Text>
+              <Text style={{fontSize:16,color:"white",fontWeight:"bold"}}>Eredeti sugárzás: </Text>
+              <Text style={{fontSize:16,color:"white"}}>{item.sorozat_ev}</Text>
+            </Text>
+            <Text>
+              <Text style={{fontSize:16,color:"white",fontWeight:"bold"}}>Évadok száma: </Text>
+              <Text style={{fontSize:16,color:"white"}}>{item.sorozat_evadszam}</Text>
+            </Text>
+            <Text>
+              <Text style={{fontSize:16,color:"white",fontWeight:"bold"}}>Epizódok száma: </Text>
+              <Text style={{fontSize:16,color:"white"}}>{item.sorozat_epizodszam}</Text>
+            </Text>
+            <Text>
+              <Text style={{fontSize:16,color:"white",fontWeight:"bold"}}>Részenkénti idő: </Text>
+              <Text style={{fontSize:16,color:"white"}}>{item.sorozat_hossz} perc</Text>
+            </Text>
+            <Text style={{fontSize:22,color:"#2596be",fontWeight:"bold",marginTop:2}}>Kommentek:</Text>
+              
+              
+            </View>
+          }
+          />
+          <TextInput
+          style={{borderWidth:1,padding:5,marginBottom:10,color:"black",backgroundColor:"lightgrey",borderRadius:15,borderColor:"transparent",width:100,marginLeft:30}}
+          onChangeText={(nev) => this.setState({nev})}
+          value={this.state.nev}
+          multiline={true}
+          placeholder='Név'
+        />
+
+        <TextInput
+          style={{borderWidth:1,padding:5,marginBottom:10,color:"black",backgroundColor:"lightgrey",borderRadius:15,borderColor:"transparent",width:300,height:50,marginLeft:30}}
+          onChangeText={(komment) => this.setState({komment})}
+          value={this.state.komment}
+          multiline={true}
+          placeholder='Hozzászólás irása'
+        />
+        
+        {this.state.nev === "" || this.state.komment === "" ?
+         <TouchableOpacity 
+         style={{borderWidth:1,width:200,alignSelf:"center",borderColor:"transparent",borderRadius:6,padding:2,backgroundColor:"grey",marginBottom:10}}
+         >
+           
+           <Text style={{textAlign:"center",fontSize:19,color:"white"}}>Az egyik mezőt üresen hagytad</Text>
+         </TouchableOpacity>
+        :
+        <TouchableOpacity 
+        style={{borderWidth:1,width:100,alignSelf:"center",borderColor:"transparent",borderRadius:6,padding:2,backgroundColor:"grey",marginBottom:10}}
+        onPress={()=> this.felvitel()}
+        >
+          
+          <Text style={{textAlign:"center",fontSize:19,color:"white"}}>Mehet</Text>
+        </TouchableOpacity>
+        }
+
+        {this.state.sorozatkommentek.length === 0 ? <Text style={{color:"white",fontSize:22,textAlign:"center"}}>Ehhez a sorozathoz még nincsenek kommentek</Text> :<FlatList
+          data={this.state.sorozatkommentek}
+          keyExtractor={({komment_id}) => komment_id} 
+          renderItem={({item}) =>
+          <View style={{borderWidth:1,width:150,borderColor:"transparent",borderRadius:10,padding:8,backgroundColor:"lightgrey",margin:7,marginLeft:15}}>
+            <Text style={{color:"black",fontWeight:"bold",fontSize:15}}>{item.komment_nev}</Text>
+            <Text style={{fontSize:17}}>{item.komment_szoveg}</Text>
+            
+          </View>
         }
         />
-        </View>
+        }
+                </View>
+              </View>
+              </ScrollView>
+          </Modal>
 
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={this.state.modalVisible2}
+          >
+            
+              <ScrollView style={{backgroundColor: 'rgba(0,0,0,0.5)'}}>
+              <Pressable
+                  style={styles.button}
+                  onPress={() => this.setState({modalVisible2 : false})}
+                >
+                  <Text style={styles.textStyle}>X</Text>
+                  
+                </Pressable>
+                
+               <View style={styles.modalView}>
+                <View style={{alignItems:"center",justifyContent:"center"}}>
+                <FlatList
+                data={this.state.filmlink}
+                keyExtractor={({film_id}) => film_id}
+                
+                renderItem={({item}) => 
+
+                <View>
+                  {item.film_link === "" ? <Text>Nincs link</Text>:
+                  <Iframe
+                  url ={item.film_link}
+                  width="850px"
+                  height="450px"
+                  id="MyId"
+                  className="MyClassName"
+                  display = "initial"
+                  position = "relative"
+                  />
+                }
+                </View>
+              }
+              />
+              
+              </View>
+
+              <View style={{flexDirection:"row",padding:10,justifyContent:"flex-end"}}>
+                 <View>
+                  <TouchableOpacity
+                  onPress={()=>this.tetszikfilm()}
+                  style={{borderWidth:1,bordercolor:"grey",backgroundColor:"green", borderRadius:100, width:70}}
+                  >
+                    <Text style={{color:"white",padding:6, textAlign: "center"}}>Tetszik</Text>
+                  </TouchableOpacity>
+                   <FlatList
+                   data={this.state.tetszikfilmtomb}
+                   keyExtractor={({film_id}) => film_id} 
+                   renderItem={({item}) =>
+                   <View style={{textAlign:'center'}}>
+                   <Text style={{fontSize:16,color:"white", }}>{item.film_like}</Text>
+                  </View>
+                    }
+                   />
+                 </View>
+                 <View>
+                 <TouchableOpacity
+                 onPress={()=>this.nemtetszikfilm()}
+                 style={{borderWidth:1,bordercolor:"grey",backgroundColor:"red",width:100, borderRadius:100,justifyContent:"center"}}
+                 >
+                 <Text style={{color:"white",textAlign: "center", padding:5, paddingBottom:8}}>Nem tetszik</Text>
+                  </TouchableOpacity>
+                  <FlatList
+                   data={this.state.nemtetszikfilmtomb}
+                   keyExtractor={({film_id}) => film_id} 
+                   renderItem={({item}) =>
+                   <View style={{textAlign:'center'}}>
+                   <Text style={{fontSize:16,color:"white", }}>{item.film_dislike}</Text>
+                  </View>
+                    }
+                   />
+                 </View>
+                 </View>
+              
+              <View style={styles.infok}>
+                <Text style={{color:"white",fontSize:25,textAlign:"center"}}>{this.state.filmcim}</Text>
+                <FlatList
+                data={this.state.filmsajatadatok}
+                keyExtractor={({film_id}) => film_id} 
+                renderItem={({item}) =>
+            <View style={{margin:10}} >
+              <Text style={{fontSize:22,color:"#2596be",fontWeight:"bold"}}>Leírás:</Text>
+            <Text style={{fontSize:15,color:"white",padding:2}}>{item.film_leiras}</Text>
+            <Text style={{fontSize:22,color:"#2596be",fontWeight:"bold",marginTop:2}}>További infók:</Text>
+            <Text>
+              <Text style={{fontSize:16,color:"white",fontWeight:"bold"}}>Műfaj: </Text>
+              <Text style={{fontSize:16,color:"white"}}>{item.mufaj_nev}</Text>
+            </Text>
+            <Text>
+              <Text style={{fontSize:16,color:"white",fontWeight:"bold"}}>Megjelenés dátuma: </Text>
+              <Text style={{fontSize:16,color:"white"}}>{item.film_ev}</Text>
+            </Text>
+            <Text style={{fontSize:22,color:"#2596be",fontWeight:"bold",marginTop:2}}>Kommentek:</Text>
+              
+              
+            </View>
+          }
+          />
+          <TextInput
+          style={{borderWidth:1,padding:5,marginBottom:10,color:"black",backgroundColor:"lightgrey",borderRadius:15,borderColor:"transparent",width:100,marginLeft:30}}
+          onChangeText={(nev) => this.setState({nev})}
+          value={this.state.nev}
+          multiline={true}
+          placeholder='Név'
+        />
+
+        <TextInput
+          style={{borderWidth:1,padding:5,marginBottom:10,color:"black",backgroundColor:"lightgrey",borderRadius:15,borderColor:"transparent",width:300,height:50,marginLeft:30}}
+          onChangeText={(komment) => this.setState({komment})}
+          value={this.state.komment}
+          multiline={true}
+          placeholder='Hozzászólás irása'
+        />
+        
+        {this.state.nev === "" || this.state.komment === "" ?
+         <TouchableOpacity 
+         style={{borderWidth:1,width:200,alignSelf:"center",borderColor:"transparent",borderRadius:6,padding:2,backgroundColor:"grey",marginBottom:10}}
+         >
+           
+           <Text style={{textAlign:"center",fontSize:19,color:"white"}}>Az egyik mezőt üresen hagytad</Text>
+         </TouchableOpacity>
+        :
+        <TouchableOpacity 
+        style={{borderWidth:1,width:100,alignSelf:"center",borderColor:"transparent",borderRadius:6,padding:2,backgroundColor:"grey",marginBottom:10}}
+        onPress={()=> this.felvitel2()}
+        >
+          
+          <Text style={{textAlign:"center",fontSize:19,color:"white"}}>Mehet</Text>
+        </TouchableOpacity>
+        }
+
+        {this.state.filmkommentek.length === 0 ? <Text style={{color:"white",fontSize:22,textAlign:"center"}}>Ehhez a filmhez még nincsenek kommentek</Text> : <FlatList
+          data={this.state.filmkommentek}
+          keyExtractor={({film_komment_id}) => film_komment_id} 
+          renderItem={({item}) =>
+          <View style={{borderWidth:1,width:150,borderColor:"transparent",borderRadius:10,padding:8,backgroundColor:"lightgrey",margin:7,marginLeft:15}}>
+            <Text style={{color:"black",fontWeight:"bold",fontSize:15}}>{item.film_komment_nev}</Text>
+            <Text style={{fontSize:17}}>{item.film_komment_szoveg}</Text>
+            
+          </View>
+        }
+        />
+        }
+                </View>
+              </View>
+              </ScrollView>
+          </Modal>
         
       </ScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  modalView: {
+    borderRadius:5,
+    backgroundColor:"#181818",
+    margin:20,
+    width:850,
+    flex:1,
+    alignSelf:"center",
+  },
+
+  infok:{
+    padding:30,
+  },
+
+  button: {
+    padding:10,
+    backgroundColor:"#2596be",
+    width:40,
+    height:40,
+    margin:8,
+    borderRadius:50
+    
+  },
+
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    textAlign: "center",
+  }
+});

@@ -185,7 +185,7 @@ export default class FetchExample extends React.Component {
         style={styles.kekgomb}
         onPress={async ()=>this.filmkommenttorles(item.film_komment_id)}
       >
-        <Text style={{color:"white",fontWeight:"bold",fontSize:15}} >Komment törlés</Text>
+        <Text style={{color:"white",fontWeight:"bold",fontSize:13}} >Törlés</Text>
       </TouchableOpacity>
         </View>
          }

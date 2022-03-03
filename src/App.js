@@ -59,13 +59,12 @@ class App extends Component {
 
       <div>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Navbar.Brand href="#home">
-        Dice Roller
+      <Navbar.Brand href="/proba">
+        Kezdőoldal
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/proba">Kezdőoldal</Nav.Link>
           <Nav.Link href="/sorozatok">Sorozatok</Nav.Link>
           <Nav.Link href="/filmek">Filmek</Nav.Link>
 
