@@ -623,6 +623,7 @@ export default class Kezdooldal extends React.Component {
           <FlatList 
             style={{height:60,textAlign:"center"}}
             showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{flex:1,flexDirection : "row", flexWrap : "wrap",}} 
             data={this.state.legfrissebbsorozat}
             horizontal
             //numColumns={2}
@@ -650,6 +651,8 @@ export default class Kezdooldal extends React.Component {
             style={{height:60, textAlign:"center"}}
             showsHorizontalScrollIndicator={false}
             data={this.state.legnezettebbsorozat}
+            contentContainerStyle={{flex:1,flexDirection : "row", flexWrap : "wrap",}} 
+
             horizontal
             //numColumns={2}
             keyExtractor={({sorozat_id}, index) => sorozat_id}
@@ -676,6 +679,8 @@ export default class Kezdooldal extends React.Component {
             style={{height:60, textAlign:"center"}}
             showsHorizontalScrollIndicator={false}
             data={this.state.legnezettebbfilm}
+            contentContainerStyle={{flex:1,flexDirection : "row", flexWrap : "wrap",}} 
+
             horizontal
             //numColumns={2}
             keyExtractor={({film_id}, index) => film_id}
@@ -702,6 +707,7 @@ export default class Kezdooldal extends React.Component {
           style={{height:60, textAlign:"center"}}
           showsHorizontalScrollIndicator={false}
           data={this.state.legfrissebbfilm}
+          contentContainerStyle={{flex:1,flexDirection : "row", flexWrap : "wrap", }} 
           horizontal
           keyExtractor={({film_id}) => film_id}
           renderItem={({item}) =>

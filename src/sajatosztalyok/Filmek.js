@@ -454,13 +454,18 @@ export default class Sorozat extends React.Component {
     <Text style={{textAlign:"center",fontSize:15,color:"white", paddingTop:3,}}>Összes</Text>
     </TouchableOpacity>
 
-
+    <ScrollView
+     horizontal={true}
+     showsHorizontalScrollIndicator={true}
+     style={{height:60}}>
   <FlatList
     data={this.state.dataSource2}
     horizontal
-    showsHorizontalScrollIndicator={true}
+    showsHorizontalScrollIndicator={false}
+    contentContainerStyle={{flex:1,flexDirection : "row", flexWrap : "wrap", justifyContent:'center', alignItems:'center',}} 
     style={{marginRight:17, marginLeft:10}} 
     renderItem={({item}) => 
+   
     <View style={{alignItems:"center",marginTop:11,flexDirection:'row',marginBottom:19,flex:1,flexWrap:"wrap" }}>
     
       <TouchableOpacity
@@ -472,10 +477,12 @@ export default class Sorozat extends React.Component {
     <Text style={{textAlign:"center",fontSize:15,color:"white", marginTop:1}}>{item.mufaj_nev} </Text>
     </TouchableOpacity>
     </View>
+    
 
   }
     keyExtractor={({mufaj_id}, index) => mufaj_id}
   />
+  </ScrollView>
 
   </View>      
 
