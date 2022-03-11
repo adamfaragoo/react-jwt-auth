@@ -52,7 +52,7 @@ export default class Adattorles extends React.Component {
   }
 
   torles=(szam)=>{
-    //alert(szam)
+    alert("Sikeres törlés!")
     var bemenet={
       bevitel1:szam
     }
@@ -87,7 +87,7 @@ export default class Adattorles extends React.Component {
   }
 
   filmtorles=(szam)=>{
-    //alert(szam)
+    alert("Sikeres törlés!")
     var bemenet={
       bevitel1:szam
     }
