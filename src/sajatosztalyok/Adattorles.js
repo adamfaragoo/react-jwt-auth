@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor:"#2596be",
     padding: 10,
-    width:300,
+    width:200,
     marginLeft:"auto",
     marginRight:"auto",
     marginTop:10

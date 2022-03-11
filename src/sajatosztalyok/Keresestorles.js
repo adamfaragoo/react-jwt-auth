@@ -5,7 +5,7 @@ var width = Dimensions.get("window").width;
 
 const ipcim="localhost:8080";
 
-export default class FetchExample extends React.Component {
+export default class Keresestorles extends React.Component {
 
   constructor(props){
     super(props);
@@ -90,7 +90,7 @@ export default class FetchExample extends React.Component {
         
         )
         .then(x => x.text())
-        .then(y => alert(y));
+        .then(y => alert("Törölve"));
       
         }
       
@@ -124,18 +124,26 @@ export default class FetchExample extends React.Component {
        <View style={{flexDirection:'column', alignItems:'center', justifyContent:'center', flexDirection:"row"}}>
         <TextInput
         placeholderTextColor="black"
-        style={{height: 45,backgroundColor:"#DCDCDC", borderRadius:10, padding:10, width:240,margin:20,marginRight:10, textAlign:"center", }}
+        style={{height: 45,backgroundColor:"#DCDCDC", borderRadius:10, padding:10, width:240,margin:20,marginRight:10, textAlign:"center",}}
         placeholder="Keresés"
         onChangeText={(szoveg) => this.setState({szoveg})}
         value={this.state.szoveg}
         />
-        <TouchableOpacity 
-          onPress={ ()=>this.kereses()}>
+        {this.state.szoveg == "" ?  
+        <TouchableOpacity >
           <View style={{width:85,height:50,backgroundColor:"#2596be", borderRadius:10,height:45, alignItems:'center', justifyContent:'center'}}>
         
             <Text>Keresés</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> :
+        <TouchableOpacity 
+        onPress={ ()=>this.kereses()}>
+        <View style={{width:85,height:50,backgroundColor:"#2596be", borderRadius:10,height:45, alignItems:'center', justifyContent:'center'}}>
+      
+          <Text>Keresés</Text>
+        </View>
+      </TouchableOpacity>}
+        
       </View>
       
       <FlatList
@@ -165,13 +173,20 @@ export default class FetchExample extends React.Component {
         onChangeText={(szoveg2) => this.setState({szoveg2})}
         value={this.state.szoveg2}
         />
-        <TouchableOpacity 
-          onPress={ ()=>this.kereses2()}>
+        {this.state.szoveg2 == "" ?  
+        <TouchableOpacity >
           <View style={{width:85,height:50,backgroundColor:"#2596be", borderRadius:10,height:45, alignItems:'center', justifyContent:'center'}}>
         
             <Text>Keresés</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> :
+        <TouchableOpacity 
+        onPress={ ()=>this.kereses2()}>
+        <View style={{width:85,height:50,backgroundColor:"#2596be", borderRadius:10,height:45, alignItems:'center', justifyContent:'center'}}>
+      
+          <Text>Keresés</Text>
+        </View>
+      </TouchableOpacity>}
       </View>
       
       <FlatList
@@ -183,9 +198,9 @@ export default class FetchExample extends React.Component {
             <Text style={{fontSize:17}}>{item.film_komment_szoveg}</Text>
             <TouchableOpacity
         style={styles.kekgomb}
-        onPress={async ()=>this.filmkommenttorles(item.film_komment_id)}
+        onPress={async ()=>this.filmkommenttorles(item.komment_id)}
       >
-        <Text style={{color:"white",fontWeight:"bold",fontSize:13}} >Törlés</Text>
+        <Text style={{color:"white",fontWeight:"bold",fontSize:15}} >Törlés</Text>
       </TouchableOpacity>
         </View>
          }
