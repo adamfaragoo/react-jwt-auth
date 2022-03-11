@@ -68,9 +68,6 @@ class App extends Component {
           <Nav.Link href="/sorozatok">Sorozatok</Nav.Link>
           <Nav.Link href="/filmek">Filmek</Nav.Link>
 
-          {currentUser && (
-            <Nav.Link href="/user">Felhasználó</Nav.Link>
-            )}
           {showAdminBoard && (
           <NavDropdown title="Admin" id="collasible-nav-dropdown">
             <NavDropdown.Item href="/adattorles">Adattörlés</NavDropdown.Item>
