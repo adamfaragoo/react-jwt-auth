@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React,{useState} from 'react'
 
+function hiba(){
+    alert("Hibás adatok!")
+}
 function FileUpload(props) {
 
     const [file, setFile] = useState();
@@ -15,7 +18,7 @@ function FileUpload(props) {
         const formData = new FormData();
         formData.append("file", file);
         formData.append("fileName", fileName);
-        alert(fileName);
+        alert("Sikeres feltöltés!");
         try {
             const res = await axios.post(
                 "http://localhost:8080/upload",
@@ -62,7 +65,8 @@ function FileUpload(props) {
 
             <div className="App">
                 <input type="file" onChange={saveFile} />
-                <button onClick={uploadFile}>Feltöltés</button>
+                {props.sorozatcim=="" || props.sorozatepizodszam=="" || props.sorozatev=="" || props.sorozatevadszam=="" || props.sorozathossz=="" || props.sorozatleiras=="" || props.sorozatlink=="" ? <button onClick={()=>hiba()}>Feltöltés</button>:<button onClick={uploadFile}>Feltöltés</button> }
+                
             </div>
         );
 }

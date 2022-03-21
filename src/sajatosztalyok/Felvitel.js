@@ -27,7 +27,8 @@ export default class Felvitel extends React.Component {
       filmmufaj:'',
       filmleiras:'',
       filmlink:'',
-      valaszt:0,
+      valaszt:1,
+      valaszt2:1,
       dataSource:[],
       dataSource2:[]
 
