@@ -45,8 +45,8 @@ function FileUpload(props) {
                 headers: {"Content-type": "application/json; charset=UTF-8"}
                 } )
                 .then((response) => response.text())
-                .then((szoveg) => {
-          
+                .then(() => { 
+                    
                 })
                 .catch((error) =>{
                   console.error(error);

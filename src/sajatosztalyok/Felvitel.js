@@ -164,7 +164,7 @@ export default class Felvitel extends React.Component {
           sorozatevadszam={this.state.sorozatevadszam}
           sorozatepizodszam={this.state.sorozatepizodszam}
           sorozatlink={this.state.sorozatlink}>
-            
+          
           </FileUpload>
 
     </View>
