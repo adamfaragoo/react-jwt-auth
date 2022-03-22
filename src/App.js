@@ -16,6 +16,7 @@ import Adattorles from "./sajatosztalyok/Adattorles";
 import Keresestorles from "./sajatosztalyok/Keresestorles";
 import Felvitel from "./sajatosztalyok/Felvitel";
 import Filmek from "./sajatosztalyok/Filmek";
+import Ajanlas from "./sajatosztalyok/Ajanlas"
 
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
@@ -67,6 +68,8 @@ class App extends Component {
         <Nav className="mr-auto">
           <Nav.Link href="/sorozatok">Sorozatok</Nav.Link>
           <Nav.Link href="/filmek">Filmek</Nav.Link>
+          <Nav.Link href="/ajanlas">Ajánlás</Nav.Link>
+
 
           {showAdminBoard && (
           <NavDropdown title="Admin" id="collasible-nav-dropdown">
@@ -132,6 +135,8 @@ class App extends Component {
             <Route path="/Keresestorles" component={Keresestorles} />
             <Route path="/Felvitel" component={Felvitel} />
             <Route path="/Filmek" component={Filmek} />
+            <Route path="/Ajanlas" component={Ajanlas} />
+
 
         
 
