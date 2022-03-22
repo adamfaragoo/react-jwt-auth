@@ -65,7 +65,7 @@ function FileUpload(props) {
 
             <div className="App">
                 <input type="file" onChange={saveFile} />
-                {props.sorozatcim=="" || props.sorozatepizodszam=="" || props.sorozatev=="" || props.sorozatevadszam=="" || props.sorozathossz=="" || props.sorozatleiras=="" || props.sorozatlink=="" ? <button onClick={()=>hiba()}>Feltöltés</button>:<button onClick={uploadFile}>Feltöltés</button> }
+                {props.sorozatcim=="" || props.sorozatepizodszam=="" || props.sorozatev=="" || props.sorozatevadszam=="" || props.sorozathossz=="" || props.sorozatleiras=="" || props.sorozatlink=="" || fileName=='' ? <button onClick={()=>hiba()}>Feltöltés</button>:<button onClick={uploadFile}>Feltöltés</button> }
                 
             </div>
         );
