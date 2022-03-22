@@ -63,7 +63,7 @@ function FileUpload2(props) {
                 
 
             <div className="App">
-                <input type="file" onChange={saveFile} />
+                <input type="file" onChange={saveFile} style={{color:"white"}} />
                 {props.filmcim=="" || props.filmev=="" || props.filmhossz=="" || props.filmleiras=="" || props.filmlink=="" || fileName=='' ? <button onClick={()=>hiba()}>Feltöltés</button>:<button onClick={uploadFile}>Feltöltés</button> }
             </div>
         );

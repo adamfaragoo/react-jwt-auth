@@ -91,9 +91,7 @@ export default class Keresestorles extends React.Component {
         )
         .then(x => x.text())
         .then(y => 
-          alert("Törölve")
-          
-          );
+          alert("Törölve"));
       
         }
       

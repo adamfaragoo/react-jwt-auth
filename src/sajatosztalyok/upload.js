@@ -18,6 +18,7 @@ function FileUpload(props) {
         const formData = new FormData();
         formData.append("file", file);
         formData.append("fileName", fileName);
+       
         alert("Sikeres feltöltés!");
         try {
             const res = await axios.post(
@@ -64,8 +65,9 @@ function FileUpload(props) {
                 
 
             <div className="App">
-                <input type="file" onChange={saveFile} />
+                <input type="file" onChange={saveFile} style={{color:"white"}}/>
                 {props.sorozatcim=="" || props.sorozatepizodszam=="" || props.sorozatev=="" || props.sorozatevadszam=="" || props.sorozathossz=="" || props.sorozatleiras=="" || props.sorozatlink=="" || fileName=='' ? <button onClick={()=>hiba()}>Feltöltés</button>:<button onClick={uploadFile}>Feltöltés</button> }
+
                 
             </div>
         );
